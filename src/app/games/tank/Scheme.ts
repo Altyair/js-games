@@ -1,7 +1,7 @@
 import { ElementRef } from '@angular/core';
-import { Tank } from './Tank';
-import { Bomb } from './Bomb';
-import { TankBullet } from './TankBullet';
+import { Tank } from './objects/Tank';
+import { Bomb } from './objects/Bomb';
+import { TankBullet } from './objects/TankBullet';
 
 export class Scheme {
     static readonly template =

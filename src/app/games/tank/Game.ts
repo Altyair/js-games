@@ -1,4 +1,4 @@
-import { Scheme } from './objects/Scheme';
+import { Scheme } from './Scheme';
 import { TankBullet } from './objects/TankBullet';
 import { Tank } from './objects/Tank';
 import { Bomb } from './objects/Bomb';
