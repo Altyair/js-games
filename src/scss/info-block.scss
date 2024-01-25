@@ -1,0 +1,16 @@
+.info {
+  margin-bottom: 24px;
+
+  &__section {
+    flex-direction: column;
+    padding-right: 40px;
+    &-title {
+      color: #808080;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+    &-value {
+      font-size: 16px;
+    }
+  }
+}

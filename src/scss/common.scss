@@ -1,0 +1,214 @@
+html,
+body {
+    height: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    margin-right: calc((-100vw + 100%));
+}
+
+.cdk-global-scrollblock {
+    overflow-y: unset !important;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    color: #090512;
+    margin: 0;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+.error-color {
+    color: $warn-color;
+}
+
+.success-color {
+    color: $primary-color;
+}
+
+a {
+    text-decoration: none;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: $dark-color;
+}
+
+.main-wrapper {
+    width: 100%;
+}
+
+.basic-container {
+    max-width: 1600px;
+    margin: auto;
+    padding: 0 4em;
+}
+
+.btn-block-right {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.btn-add-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.active-menu-item {
+    background-color: rgba(0, 142, 31, 0.10980392156862745);
+}
+
+.clickable {
+    color: #090512;
+
+    &:hover {
+        color: $primary-color;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+table tr.deleted td {
+    color: $light-color;
+
+    a {
+        color: $light-color;
+
+        &:not([href^='mailto']):not([href^='tel']) {
+            &::after {
+                content: ' *';
+                color: $light-color;
+            }
+        }
+    }
+}
+
+.mdc-button {
+    padding: 0 24px !important;
+    min-height: 40px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.mat-calendar-body-selected {
+    color: #fff;
+}
+
+.mat-calendar-header .mat-mdc-icon-button.mat-mdc-button-base {
+    margin-top: 0;
+}
+
+.mat-calendar-table-header th {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.mat-mdc-tab-labels {
+    gap: 24px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.mat-mdc-tab-body {
+    table th.mat-mdc-header-cell {
+        border-top: none;
+    }
+}
+
+.mat-mdc-tab.mdc-tab {
+    min-width: 0;
+    padding: 0;
+
+    &:hover {
+        background-color: transparent !important;
+    }
+}
+
+.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+    color: #000;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+}
+
+button.mat-mdc-icon-button svg,
+button.mat-mdc-icon-button .material-icons {
+    vertical-align: super;
+}
+
+mat-paginator .mat-mdc-paginator-container {
+    padding-right: 0;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field .mat-mdc-form-field-error-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 11px;
+    line-height: 9px;
+}
+
+.mat-mdc-form-field-hint-spacer {
+    display: none;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-bottom-align::before {
+    height: 12px;
+}
+
+.mat-mdc-card {
+    box-shadow: 0px 11px 22px 1px rgba(0, 0, 0, 0.15);
+    margin-bottom: 24px;
+}
+
+.mat-mdc-card .mat-mdc-card-content,
+.mat-mdc-card .mat-mdc-card-content:first-child,
+.mat-mdc-card .mat-mdc-card-content:last-child {
+    padding: 24px;
+}
+
+.mat-mdc-standard-chip.mat-primary.mat-mdc-chip-selected {
+    --mdc-chip-label-text-color: #fff;
+    --mdc-chip-with-icon-selected-icon-color: #fff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+
+.ng-select .ng-dropdown-panel .ng-dropdown-panel-items,
+.ng-dropdown-panel .ng-dropdown-panel-items.scroll-host {
+    max-height: 288px;
+}
+
+body>.ng-dropdown-panel.ng-select-bottom {
+    margin-top: -20px;
+}
+
+.mdc-tooltip__surface {
+    max-width: 400px !important;
+}
+
+.mat-mdc-card-header-text {
+    width: 100%;
+}

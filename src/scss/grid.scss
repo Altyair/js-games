@@ -1,0 +1,442 @@
+.container {
+    width: 100%;
+    min-width: $grid-breakpoint-xs;
+    max-width: $container-width-xl;
+    padding-left: $container-padding-xl;
+    padding-right: $container-padding-xl;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
+* Наименования css-классов соответствуют https://getbootstrap.com/docs/5.0/layout/grid/
+* При расширении функционала нужно ориентироваться на bootstrap наименования
+*/
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -$grid-gutter-xl;
+    margin-left: -$grid-gutter-xl;
+}
+.row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: $grid-gutter-xl;
+    padding-left: $grid-gutter-xl;
+}
+.col-0 {
+    display: none !important;
+}
+.col-1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+}
+.col-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+}
+.col-3 {
+    flex: 0 0 auto;
+    width: 25%;
+}
+.col-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+.col-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+}
+.col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+.col-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+}
+.col-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+}
+.col-9 {
+    flex: 0 0 auto;
+    width: 75%;
+}
+.col-10 {
+    flex: 0 0 auto;
+    width: 83.33333333%;
+}
+.col-11 {
+    flex: 0 0 auto;
+    width: 91.66666667%;
+}
+.col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+.col {
+    flex: 1 0 0;
+}
+.col-auto {
+    width: auto;
+    flex-grow: 1;
+}
+.row-cols-auto > * {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+/** от 1601 и выше */
+@media (min-width: $grid-breakpoint-xl + 1) {
+    .row {
+        margin-right: -$grid-gutter-xl;
+        margin-left: -$grid-gutter-xl;
+    }
+    .row > * {
+        padding-right: $grid-gutter-xl;
+        padding-left: $grid-gutter-xl;
+    }
+    .col-xxl-0 {
+        display: none !important;
+    }
+    .col-xxl-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .col-xxl-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .col-xxl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-xxl-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .col-xxl-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-xxl-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-xxl-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .col-xxl-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .col-xxl-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-xxl-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .col-xxl-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .col-xxl-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .col-xxl {
+        flex: 1 0 0;
+    }
+}
+
+@media (max-width: $grid-breakpoint-lgx) {
+    .col-lgx-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: $grid-breakpoint-lg-max) {
+    .container {
+        padding-left: $container-padding-lg;
+        padding-right: $container-padding-lg;
+    }
+
+    .row {
+        margin-right: -$grid-gutter-lg;
+        margin-left: -$grid-gutter-lg;
+    }
+    .row > * {
+        padding-right: $grid-gutter-lg;
+        padding-left: $grid-gutter-lg;
+    }
+    .col-lg-0 {
+        display: none !important;
+    }
+    .col-lg-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .col-lg-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .col-lg-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-lg-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-lg-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .col-lg-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .col-lg-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-lg-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .col-lg-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .col-lg-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .col-lg {
+        flex: 1 0 0;
+    }
+}
+
+@media (max-width: $grid-breakpoint-md-max) {
+    .container {
+        padding-left: $container-padding-md;
+        padding-right: $container-padding-md;
+    }
+
+    .row {
+        margin-right: -$grid-gutter-md;
+        margin-left: -$grid-gutter-md;
+    }
+    .row > * {
+        padding-right: $grid-gutter-md;
+        padding-left: $grid-gutter-md;
+    }
+    .col-md-0 {
+        display: none !important;
+    }
+    .col-md-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .col-md-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .col-md-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-md-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .col-md-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-md-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .col-md-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-md-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .col-md-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .col-md-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .col-md {
+        flex: 1 0 0;
+    }
+}
+
+@media (max-width: $grid-breakpoint-sm-max) {
+    .container {
+        padding-left: $container-padding-sm;
+        padding-right: $container-padding-sm;
+    }
+
+    .row {
+        margin-right: -$grid-gutter-sm;
+        margin-left: -$grid-gutter-sm;
+    }
+    .row > * {
+        padding-right: $grid-gutter-sm;
+        padding-left: $grid-gutter-sm;
+    }
+    .col-sm-0 {
+        display: none !important;
+    }
+    .col-sm-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .col-sm-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .col-sm-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-sm-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .col-sm-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-sm-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-sm-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .col-sm-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .col-sm-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-sm-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .col-sm-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .col-sm-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .col-sm {
+        flex: 1 0 0;
+    }
+}
+
+@media (max-width: $grid-breakpoint-xs-max) {
+    .container {
+        padding-left: $container-padding-xs;
+        padding-right: $container-padding-xs;
+    }
+
+    .row {
+        margin-right: -$grid-gutter-xs;
+        margin-left: -$grid-gutter-xs;
+    }
+    .row > * {
+        padding-right: $grid-gutter-xs;
+        padding-left: $grid-gutter-xs;
+    }
+    .col-xs-0 {
+        display: none !important;
+    }
+    .col-xs-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .col-xs-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .col-xs-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .col-xs-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .col-xs-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .col-xs-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .col-xs-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .col-xs-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .col-xs-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .col-xs-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .col-xs-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .col-xs-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    .col-xs {
+        flex: 1 0 0;
+    }
+}

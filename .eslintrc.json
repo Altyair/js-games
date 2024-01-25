@@ -1,0 +1,48 @@
+{
+    "env": {
+        "browser": true
+    },
+    "extends": ["prettier"],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint", "prettier", "html"],
+    "rules": {
+        "no-constant-condition": "warn",
+        "eqeqeq": "error",
+        "linebreak-style": ["error", "windows"],
+        "quotes": ["warn", "single"],
+        "semi": ["error", "always"],
+        "no-eval": "warn",
+        "no-debugger": "warn",
+        "no-var": "error",
+        "no-use-before-define": "warn",
+        "no-unused-expressions": "error",
+        "prefer-const": "warn",
+        "no-sparse-arrays": "warn",
+        "no-duplicate-imports": "error",
+        "max-len": ["warn", 160],
+        "no-empty": "off",
+        "no-shadow": "warn",
+        "no-trailing-spaces": "error",
+        "radix": "warn",
+        "arrow-parens": "off",
+        "guard-for-in": "warn",
+        "prettier/prettier": ["error"],
+        "sort-imports": "off",
+        "curly": "error",
+        "eol-last": "warn",
+        "camelcase": "error",
+        "no-new-wrappers": "error",
+        "no-throw-literal": "error",
+        "no-template-curly-in-string": "error",
+        "sort-keys": "off",
+        "no-unreachable": "warn"
+    }
+}
