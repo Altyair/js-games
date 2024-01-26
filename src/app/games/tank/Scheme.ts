@@ -2,6 +2,7 @@ import { ElementRef } from '@angular/core';
 import { Tank } from './objects/Tank';
 import { Bomb } from './objects/Bomb';
 import { TankBullet } from './objects/TankBullet';
+import { Objects } from './interfaces';
 
 export class Scheme {
     static readonly template =
@@ -46,7 +47,7 @@ export class Scheme {
         }
     }
 
-    public placeObjects(objects: [TankBullet[]?, Tank?, Bomb[]?]): void {
+    public placeObjects(objects: Objects): void {
         objects.forEach((object: any) => {
             if (object?.length) {
                 object?.forEach((obj: any) => {

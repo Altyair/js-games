@@ -24,16 +24,13 @@ import {
 } from 'rxjs';
 import { Helper } from '../shared/Helper';
 import { mergeMap, takeWhile } from 'rxjs/operators';
-
-interface DirectionKeydown {
-    direction?: string;
-    value?: number;
-}
+import { DirectionKeydown, Objects } from './interfaces';
+import { Collisions } from './Collisions';
 
 export class Game {
     private readonly config: any = {};
     private readonly scheme: Scheme;
-    private objects: [TankBullet[]?, Tank?, Bomb[]?] = [];
+    private objects: Objects = [];
     private readonly bombs: Bombs | undefined;
     private readonly app: ElementRef<HTMLElement> | undefined;
     private bullets: TankBullets | undefined;
@@ -49,7 +46,7 @@ export class Game {
         this.app = app;
         this.scheme = new Scheme(30, this.app);
         this.bombs = new Bombs(10);
-        this.bullets = new TankBullets(5);
+        this.bullets = new TankBullets(15);
         this.tank = new Tank();
         this.objects = [this.bullets.items, this.tank, this.bombs.items];
 
@@ -59,7 +56,7 @@ export class Game {
     private initStreams(): void {
         // таймер-процесс полета бомб
         const bombsArray: Observable<string | number>[] = this.bombs!.items.map((bomb: Bomb, index: number) => {
-            return interval(300).pipe(
+            return interval(600).pipe(
                 delayWhen(() => timer(index * 1000)),
                 tap((_) => {
                     const coordinates = bomb.coordinates;
@@ -139,11 +136,12 @@ export class Game {
 
     private update(): void {
         this.scheme.clear();
+        Collisions.checkCollisionsBombWithBullet(this.bombs?.items!, this.bullets?.items!);
         this.scheme.placeObjects(this.objects);
         this.scheme.draw();
     }
 
-    public setObjects(objects: any): void {
+    public setObjects(objects: Objects): void {
         this.objects = objects;
     }
 
