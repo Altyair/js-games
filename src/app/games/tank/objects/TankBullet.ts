@@ -1,4 +1,5 @@
 import { Tank } from './Tank';
+import { State } from '../State';
 
 export class TankBullet extends Tank {
     public template =

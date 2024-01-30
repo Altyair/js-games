@@ -1,4 +1,4 @@
-import { Scheme } from './Scheme';
+import { Map } from './Map';
 import { TankBullet } from './objects/TankBullet';
 import { Tank } from './objects/Tank';
 import { Bomb } from './objects/Bomb';
@@ -24,12 +24,13 @@ import {
 } from 'rxjs';
 import { Helper } from '../shared/Helper';
 import { mergeMap, takeWhile } from 'rxjs/operators';
-import { DirectionKeydown, Objects } from './interfaces';
+import { Config, DirectionKeydown, Objects } from './interfaces';
 import { Collisions } from './Collisions';
+import { CONFIG } from './constants';
+import { State } from './State';
 
 export class Game {
-    private readonly config: any = {};
-    private readonly scheme: Scheme;
+    private readonly map: Map;
     private objects: Objects = [];
     private readonly bombs: Bombs | undefined;
     private readonly app: ElementRef<HTMLElement> | undefined;
@@ -41,12 +42,15 @@ export class Game {
     private moveTank$: Observable<TankBullet> | undefined;
     private game$: Subscription | undefined;
 
-    constructor(app: ElementRef<HTMLElement> | undefined, config: any) {
-        this.config = config;
+    constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
+        State.config = { ...config, ...CONFIG };
+
+        console.log(State);
+
         this.app = app;
-        this.scheme = new Scheme(30, this.app);
-        this.bombs = new Bombs(10);
-        this.bullets = new TankBullets(15);
+        this.map = new Map(State.config.mapSize!, this.app);
+        this.bombs = new Bombs(State.config.countBombs!);
+        this.bullets = new TankBullets(State.config.countBullets!);
         this.tank = new Tank();
         this.objects = [this.bullets.items, this.tank, this.bombs.items];
 
@@ -56,7 +60,7 @@ export class Game {
     private initStreams(): void {
         // таймер-процесс полета бомб
         const bombsArray: Observable<string | number>[] = this.bombs!.items.map((bomb: Bomb, index: number) => {
-            return interval(600).pipe(
+            return interval(State.config.bombSpeed!).pipe(
                 delayWhen(() => timer(index * 1000)),
                 tap((_) => {
                     const coordinates = bomb.coordinates;
@@ -64,10 +68,10 @@ export class Game {
                         throw new Error('Game over');
                     }
 
-                    if (coordinates[0] < this.scheme!.size - 1) {
+                    if (coordinates[0] < this.map!.size - 1) {
                         bomb.move([coordinates[0] + 1, coordinates[1]]);
                     } else {
-                        bomb.move([0, Helper.randomValue(0, this.scheme!.size - 1)]);
+                        bomb.move([0, Helper.randomValue(0, this.map!.size - 1)]);
                     }
                 }),
                 catchError(() => of('Game over'))
@@ -102,14 +106,13 @@ export class Game {
             mergeMap((val: number) => {
                 const copyCoords = this.bullets!.items[val - 1].coordinates.slice();
                 this.bullets!.items[val - 1].isFlying = true;
-                return interval(100).pipe(
+                return interval(State.config.bulletSpeed!).pipe(
                     takeWhile(() => copyCoords[0] > 0),
                     tap((val1) => {
                         copyCoords[0] -= 1;
                         this.bullets!.items[val - 1].move([copyCoords[0], copyCoords[1]]);
 
                         if (copyCoords[0] === 0) {
-                            // bullets.items.splice(val - 1, 1);
                             this.bullets!.items[val - 1].destroyed = true;
                         }
                     })
@@ -135,10 +138,10 @@ export class Game {
     }
 
     private update(): void {
-        this.scheme.clear();
+        this.map.clear();
         Collisions.checkCollisionsBombWithBullet(this.bombs?.items!, this.bullets?.items!);
-        this.scheme.placeObjects(this.objects);
-        this.scheme.draw();
+        this.map.placeObjects(this.objects);
+        this.map.draw();
     }
 
     public setObjects(objects: Objects): void {
@@ -147,7 +150,7 @@ export class Game {
 
     public play(): void {
         // основной стрим, который обнаруживает любые изменения и рендерит игру
-        this.game$ = merge(this.moveBombs$!, this.moveBullets$!, this.moveTank$!).subscribe((res) => {
+        this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!).subscribe((res) => {
             if (res === 'Game over') {
                 this.setObjects([]);
                 this.game$!.unsubscribe();

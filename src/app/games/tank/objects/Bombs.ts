@@ -2,15 +2,15 @@ import { Bomb } from './Bomb';
 
 export class Bombs {
     items: Bomb[] = [];
-    private readonly countBullets: number = 0;
+    private readonly countBombs: number = 0;
 
     constructor(countBullets: number) {
-        this.countBullets = countBullets;
+        this.countBombs = countBullets;
         this.createBullets();
     }
 
     private createBullets(): void {
-        for (let i = 0; i < this.countBullets; i++) {
+        for (let i = 0; i < this.countBombs; i++) {
             this.items.push(new Bomb());
         }
     }
