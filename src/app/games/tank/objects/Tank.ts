@@ -4,7 +4,7 @@ import { Coordinates } from '../interfaces';
 export class Tank {
     public template =
         '<span style="display: inline-block; margin: 1px; width: 10px; height: 10px; background-color: black"></span>';
-    coordinates: Coordinates = [State.config.mapSize! - 1, 14];
+    coordinates: Coordinates = [State.config.mapSize! - 1, State.config.mapSize! - 2];
     destroyed: boolean = false;
 
     constructor() {}

@@ -43,7 +43,7 @@ export class Collisions {
         return (
             nextCoordinates[1] >= 0 &&
             nextCoordinates[1] < State.config.mapSize! - 1 &&
-            nextCoordinates[0] >= 25 &&
+            nextCoordinates[0] >= 0 &&
             nextCoordinates[0] <= State.config.mapSize! - 1
         );
     }

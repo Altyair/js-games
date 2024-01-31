@@ -6,7 +6,7 @@ import { Objects } from './interfaces';
 
 export class Map {
     static readonly template =
-        '<div style="display: inline-block; margin: 1px; width: 10px; height: 10px; background-color: white"></div>';
+        '<div style="display: inline-block; margin: 1px; width: 10px; height: 10px; background-color: lightcyan"></div>';
 
     public size: number | null = null;
     public map: any = [];

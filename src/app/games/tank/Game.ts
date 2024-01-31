@@ -133,8 +133,8 @@ export class Game {
     }
 
     private update(): void {
-        this.map.clear();
         Collisions.checkCollisions(this.bombs?.items!, this.bullets?.items!, this.tank!);
+        this.map.clear();
         this.map.placeObjects(this.objects);
         this.map.draw();
     }
@@ -151,9 +151,8 @@ export class Game {
             });
 
         Collisions.gameOverObs$.subscribe((_) => {
-            alert('Game over');
-            this.bombs?.resetItems();
-            this.update();
+            // this.bombs?.resetItems();
+            // this.update();
         });
     }
     public pause(): void {}
