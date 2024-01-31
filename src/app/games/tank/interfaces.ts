@@ -15,6 +15,7 @@ export interface Config {
     countBullets?: number;
     bombSpeed?: number;
     bulletSpeed?: number;
+    objectSize?: number;
 }
 
 export type Coordinates = [number, number];

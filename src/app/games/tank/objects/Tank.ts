@@ -2,8 +2,7 @@ import { State } from '../State';
 import { Coordinates } from '../interfaces';
 
 export class Tank {
-    public template =
-        '<span style="display: inline-block; margin: 1px; width: 10px; height: 10px; background-color: black"></span>';
+    public template = `<span style="display: inline-block; margin: 1px; width: ${State.config.objectSize}px; height: ${State.config.objectSize}px; background-color: black"></span>`;
     coordinates: Coordinates = [State.config.mapSize! - 1, State.config.mapSize! - 2];
     destroyed: boolean = false;
 

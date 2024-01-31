@@ -3,14 +3,15 @@ import { Tank } from './objects/Tank';
 import { Bomb } from './objects/Bomb';
 import { TankBullet } from './objects/TankBullet';
 import { Objects } from './interfaces';
+import { State } from './State';
 
 export class Map {
-    static readonly template =
-        '<div style="display: inline-block; margin: 1px; width: 10px; height: 10px; background-color: lightcyan"></div>';
+    private readonly template = `<div style="display: inline-block; margin: 1px; width: ${State.config.objectSize}px; height: ${State.config.objectSize}px; background-color: lightcyan"></div>`;
 
     public size: number | null = null;
     public map: any = [];
     container: ElementRef<HTMLElement> | undefined;
+    public test = State.config.objectSize;
 
     constructor(size: number, container: ElementRef<HTMLElement> | undefined) {
         this.size = size;
@@ -23,7 +24,7 @@ export class Map {
         for (let i = 0; i < this.size!; i++) {
             this.map.push([]);
             for (let j: number = 0; j < this.size!; j++) {
-                j === this.size! - 1 ? this.map[i].push('<br>') : this.map[i].push(Map.template);
+                j === this.size! - 1 ? this.map[i].push('<br>') : this.map[i].push(this.template);
             }
         }
     }

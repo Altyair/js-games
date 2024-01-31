@@ -4,4 +4,5 @@ export const CONFIG = {
     countBullets: 300,
     bombSpeed: 300,
     bulletSpeed: 50,
+    objectSize: 20,
 };
