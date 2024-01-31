@@ -153,6 +153,7 @@ export class Game {
         Collisions.gameOverObs$.subscribe((_) => {
             alert('Game over');
             this.bombs?.resetItems();
+            this.update();
         });
     }
     public pause(): void {}

@@ -11,7 +11,11 @@ export class TestComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const game: Game = new Game(this.app, {
-
+            mapSize: 30,
+            countBombs: 15,
+            countBullets: 30,
+            bombSpeed: 300,
+            bulletSpeed: 50,
         });
         game.play();
     }

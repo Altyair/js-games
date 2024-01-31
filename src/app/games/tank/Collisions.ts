@@ -23,17 +23,19 @@ export class Collisions {
     }
 
     static checkBombWithBullet(bombs: Bomb[], bullets: TankBullet[]): void {
-        bullets.some((bullet: TankBullet, index) => {
-            const foundIndex = bombs.findIndex(
-                (bomb: Bomb) =>
-                    !bomb.destroyed && !bullet.destroyed && Helper.isSame(bullet.coordinates, bomb.coordinates)
-            );
-            if (foundIndex !== -1) {
-                // bombs[foundIndex].destroyed = true;
-                bombs[foundIndex].coordinates = [0, Helper.randomValue(0, State.config.mapSize! - 1)];
-                bullet.destroyed = true;
-            }
-        });
+        bullets
+            .filter((bullet: TankBullet, index) => bullet.isFlying)
+            .some((bullet: TankBullet, index) => {
+                const foundIndex = bombs.findIndex(
+                    (bomb: Bomb) =>
+                        !bomb.destroyed && !bullet.destroyed && Helper.isSame(bullet.coordinates, bomb.coordinates)
+                );
+                if (foundIndex !== -1) {
+                    // bombs[foundIndex].destroyed = true;
+                    bombs[foundIndex].coordinates = [0, Helper.randomValue(0, State.config.mapSize! - 1)];
+                    bullet.destroyed = true;
+                }
+            });
     }
 
     static checkTankWithBorders(tank: Tank, direction: DirectionKeydown): boolean {
