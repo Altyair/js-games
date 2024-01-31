@@ -7,6 +7,8 @@ import { ElementRef } from '@angular/core';
 import { TankBullets } from './objects/TankBullets';
 import {
     catchError,
+    concatMap,
+    debounceTime,
     delayWhen,
     filter,
     from,
@@ -19,11 +21,12 @@ import {
     of,
     scan,
     Subscription,
+    takeUntil,
     tap,
     timer,
 } from 'rxjs';
 import { Helper } from '../shared/Helper';
-import { mergeMap, takeWhile } from 'rxjs/operators';
+import { concatAll, mergeMap, takeWhile } from 'rxjs/operators';
 import { Config, DirectionKeydown, Objects } from './interfaces';
 import { Collisions } from './Collisions';
 import { CONFIG } from './constants';
@@ -44,9 +47,6 @@ export class Game {
 
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
         State.config = { ...config, ...CONFIG };
-
-        console.log(State);
-
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);
         this.bombs = new Bombs(State.config.countBombs!);
@@ -58,23 +58,17 @@ export class Game {
     }
 
     private initStreams(): void {
-        // таймер-процесс полета бомб
         const bombsArray: Observable<string | number>[] = this.bombs!.items.map((bomb: Bomb, index: number) => {
             return interval(State.config.bombSpeed!).pipe(
                 delayWhen(() => timer(index * 1000)),
                 tap((_) => {
                     const coordinates = bomb.coordinates;
-                    if (Helper.isSame(coordinates, this.tank!.coordinates)) {
-                        throw new Error('Game over');
-                    }
-
-                    if (coordinates[0] < this.map!.size - 1) {
+                    if (coordinates[0] < State.config.mapSize! - 1) {
                         bomb.move([coordinates[0] + 1, coordinates[1]]);
                     } else {
-                        bomb.move([0, Helper.randomValue(0, this.map!.size - 1)]);
+                        bomb.move([0, Helper.randomValue(0, State.config.mapSize! - 1)]);
                     }
-                }),
-                catchError(() => of('Game over'))
+                })
             );
         });
 
@@ -98,7 +92,6 @@ export class Game {
             }
         });
 
-        // запуск ракет ПВО
         this.moveBullets$ = fromEvent(document, 'keyup').pipe(
             filter((event: any) => event.keyCode === 32),
             scan<number, number>((a, _) => ++a, 0),
@@ -107,11 +100,10 @@ export class Game {
                 const copyCoords = this.bullets!.items[val - 1].coordinates.slice();
                 this.bullets!.items[val - 1].isFlying = true;
                 return interval(State.config.bulletSpeed!).pipe(
-                    takeWhile(() => copyCoords[0] > 0),
+                    takeWhile(() => copyCoords[0] > 0 && !this.bullets!.items[val - 1].destroyed),
                     tap((val1) => {
                         copyCoords[0] -= 1;
                         this.bullets!.items[val - 1].move([copyCoords[0], copyCoords[1]]);
-
                         if (copyCoords[0] === 0) {
                             this.bullets!.items[val - 1].destroyed = true;
                         }
@@ -120,15 +112,18 @@ export class Game {
             })
         );
 
-        // движение танка с его снарядами
         this.moveTank$ = this.input$.pipe(
             map((direction: DirectionKeydown): DirectionKeydown => {
                 return direction;
             }),
+            filter(
+                (direction: DirectionKeydown) =>
+                    direction.value !== undefined && Collisions.checkTankWithBorders(this.tank!, direction)
+            ),
             tap((direction: DirectionKeydown) => {
                 this.tank!.moveByDirection(direction);
             }),
-            mergeMap((direction: DirectionKeydown): Observable<TankBullet> => {
+            concatMap((direction: DirectionKeydown): Observable<TankBullet> => {
                 return from(this.bullets!.items).pipe(
                     filter((bullet: TankBullet) => !bullet.isFlying),
                     tap((bullet: TankBullet) => bullet.moveByDirection(direction))
@@ -139,7 +134,7 @@ export class Game {
 
     private update(): void {
         this.map.clear();
-        Collisions.checkCollisionsBombWithBullet(this.bombs?.items!, this.bullets?.items!);
+        Collisions.checkCollisions(this.bombs?.items!, this.bullets?.items!, this.tank!);
         this.map.placeObjects(this.objects);
         this.map.draw();
     }
@@ -149,16 +144,15 @@ export class Game {
     }
 
     public play(): void {
-        // основной стрим, который обнаруживает любые изменения и рендерит игру
-        this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!).subscribe((res) => {
-            if (res === 'Game over') {
-                this.setObjects([]);
-                this.game$!.unsubscribe();
-                alert('Game over');
-            }
-            // проверка столкновений
+        this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
+            .pipe(takeUntil(Collisions.gameOverObs$))
+            .subscribe((res) => {
+                this.update();
+            });
 
-            this.update();
+        Collisions.gameOverObs$.subscribe((_) => {
+            alert('Game over');
+            this.bombs?.resetItems();
         });
     }
     public pause(): void {}
