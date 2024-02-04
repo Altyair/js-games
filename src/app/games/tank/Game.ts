@@ -139,7 +139,9 @@ export class Game {
         );
 
         fromEvent(document, 'keyup')
-            .pipe(filter((event: any) => event.keyCode === 13))
+            .pipe(
+                filter((event: any) => event.keyCode === 13)
+            )
             .subscribe((_) => this._play());
     }
 
@@ -155,6 +157,8 @@ export class Game {
     }
 
     private _play(): void {
+        console.log(555);
+
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
             .subscribe();
