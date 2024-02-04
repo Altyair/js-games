@@ -61,6 +61,7 @@ export class Game {
         this.objects = [this.bullets.items, this.tank, this.bombs.items];
 
         this.initStreams();
+        this.update();
     }
 
     private initStreams(): void {
@@ -136,6 +137,10 @@ export class Game {
                 );
             })
         );
+
+        fromEvent(document, 'keyup')
+            .pipe(filter((event: any) => event.keyCode === 13))
+            .subscribe((_) => this._play());
     }
 
     private update(): void {
@@ -149,7 +154,7 @@ export class Game {
         this.objects = objects;
     }
 
-    public play(): void {
+    private _play(): void {
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
             .subscribe();
@@ -157,6 +162,7 @@ export class Game {
         Collisions.gameOverObs$.subscribe((_) => {
             // this.bombs?.resetItems();
             // this.update();
+            this.game$?.unsubscribe();
         });
 
         const tick = () => {
@@ -167,4 +173,7 @@ export class Game {
     }
 
     public pause(): void {}
+    public play(): void {
+        this._play();
+    }
 }

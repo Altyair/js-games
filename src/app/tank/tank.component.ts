@@ -17,6 +17,5 @@ export class TankComponent implements AfterViewInit {
             bombSpeed: 300,
             bulletSpeed: 50,
         });
-        game.play();
     }
 }
