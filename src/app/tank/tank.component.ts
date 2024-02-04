@@ -11,8 +11,8 @@ export class TankComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const game: Game = new Game(this.app, {
-            mapSize: 30,
-            countBombs: 15,
+            mapSize: 20,
+            countBombs: 10,
             countBullets: 30,
             bombSpeed: 300,
             bulletSpeed: 50,

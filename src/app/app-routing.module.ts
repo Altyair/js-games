@@ -1,16 +1,18 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { TankComponent } from './tank/tank.component';
 import { NgModule } from '@angular/core';
+import { LayoutComponent } from '@core/layout/layout.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: AppComponent,
-    },
-    {
-        path: 'tank',
-        component: TankComponent,
+        component: LayoutComponent,
+        children: [
+            {
+                path: 'tank',
+                component: TankComponent,
+            },
+        ],
     },
 ];
 

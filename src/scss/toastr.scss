@@ -1,0 +1,99 @@
+.ngx-toastr {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 15px 25px !important;
+  margin-bottom: 10px !important;
+  background-color: white;
+  color: black !important;
+  border: 2px solid;
+  border-radius: 7px !important;
+  width: unset !important;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.toast {
+  &-container {
+    max-height: calc(100vh - 12px * 2);
+    overflow-y: auto;
+    pointer-events: unset;
+    padding: 0 10px;
+  }
+
+  &-progress {
+    height: 5px;
+  }
+
+  &-success {
+    border-color: $primary-color;
+  }
+
+  &-error {
+    border-color: $warn-color;
+  }
+
+  &-warning {
+    border-color: $accent-color;
+  }
+
+  &-close-button {
+    position: unset !important;
+    display: flex;
+    color: white;
+    font-size: 30px;
+    font-weight: unset;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0 8px !important;
+  }
+
+  &-close-button:hover, &-close-button:active {
+    opacity: 1;
+    color: white;
+  }
+
+  &-close-button > span {
+    z-index: 1;
+  }
+
+  &-close-button::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  &-success &-close-button::before, &-success &-progress {
+    background-color: $primary-color;
+  }
+
+  &-error &-close-button::before, &-error &-progress {
+    background-color: $warn-color;
+  }
+
+  &-warning &-close-button::before, &-warning &-progress {
+    background-color: $accent-color;
+  }
+
+  &-message {
+    margin-right: 15px;
+  }
+
+  &-text-message {
+    font-size: 1.2em;
+  }
+
+  &-text-message + &-text-submessage {
+    margin-top: 5px;
+  }
+
+  &-text-submessage {
+    font-size: 0.9em;
+  }
+}

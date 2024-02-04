@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { TankComponent } from './tank/tank.component';
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CoreModule } from '@core/core.module';
 
 registerLocaleData(localeRu, 'ru-RU');
 
 @NgModule({
     declarations: [AppComponent, TankComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
+    exports: [TankComponent],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, MatToolbarModule, CoreModule],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

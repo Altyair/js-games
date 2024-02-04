@@ -1,0 +1,144 @@
+@import "../../../scss/variables.scss";
+
+$border: 1px solid #f0f0f0;
+
+.layout-wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: #ffffff;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0px -108px 164px 21px #000000;
+    z-index: 1;
+}
+
+.header-container,
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1600px;
+    padding: 0 4em;
+
+    &__links {
+        display: flex;
+        gap: 15px;
+        width: 35%;
+        justify-content: space-between;
+    }
+}
+
+.toolbar-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.left-toolbar-container,
+.right-toolbar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    position: relative;
+    height: 100%;
+    gap: 33px;
+
+    &__logout {
+        margin-top: 16px;
+    }
+}
+
+.right-toolbar-container {
+    color: #808080;
+}
+
+main {
+    background-color: #ffffff;
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+}
+
+footer {
+    height: 64px;
+    width: 100%;
+    border-top: $border;
+    background-color: #ffffff;
+    color: #636363;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 90px -19px rgba(0, 0, 0, 0.25);
+    line-height: 20px;
+    z-index: 1;
+    margin-top: 20px;
+}
+
+.right-footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #636363;
+    height: 100%;
+    padding: 0;
+}
+
+.footer-btn {
+    display: inline-block;
+    padding: 5px 0;
+    color: #636363;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+        color: $primary-color;
+    }
+}
+
+a:hover {
+    text-decoration: underline;
+    color: $primary-color;
+}
+
+.work-on-behalf {
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+
+    &__title {
+        margin-right: 8px;
+    }
+}
+
+.logout-as-btn {
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    border:none;
+    font-size: 16px;
+    text-decoration: underline;
+    color: $primary-color;
+}

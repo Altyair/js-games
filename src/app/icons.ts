@@ -64,4 +64,16 @@ export const icons: CustomIconDeclaration[] = [
         path: 'assets/icons/close-outline.svg',
         name: 'close-outline',
     },
+    {
+        path: 'assets/icons/arrow-right-circle.svg',
+        name: 'arrow-right-circle',
+    },
+    {
+        path: 'assets/icons/add-circle.svg',
+        name: 'add-circle',
+    },
+    {
+        path: 'assets/icons/share-forward-2.svg',
+        name: 'share',
+    },
 ];

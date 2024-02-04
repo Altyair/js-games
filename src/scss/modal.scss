@@ -1,0 +1,80 @@
+.mdc-dialog.mat-mdc-dialog-container {
+    max-height: 95vh;
+    min-width: 600px !important;
+
+    .mat-mdc-dialog-surface {
+        .mdc-dialog__title {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 1.3;
+            letter-spacing: 0;
+            margin-bottom: 20px;
+
+            &::before {
+                content: none;
+            }
+        }
+    }
+
+    .title-btn {
+        display: flex;
+        justify-content: flex-end;
+        margin: 30px 28px 0 auto;
+        color: #808080;
+    }
+
+    .mat-mdc-button-touch-target {
+        height: 24px !important;
+        width: 24px !important;
+    }
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+    }
+
+    mat-dialog-content.mat-mdc-dialog-content {
+        color: inherit;
+        letter-spacing: inherit;
+        padding: 0 24px 20px 24px;
+        font-size: 16px;
+        font-weight: 400;
+        font-family: inherit;
+        line-height: 1.4;
+    }
+
+    .mat-mdc-dialog-actions {
+        justify-content: end;
+        padding: 8px 24px 20px 24px;
+
+        .mdc-button {
+            font-size: 14px;
+        }
+
+        .cancel-button {
+            color: inherit;
+        }
+    }
+
+    .dialog {
+        &__container {
+            padding: 0 24px 24px 24px;
+
+            & .title-btn {
+                margin-right: 0;
+            }
+        }
+
+        &__actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.mat-mdc-dialog-container h4 {
+    padding-right: 30px;
+    font-weight: 600;
+}

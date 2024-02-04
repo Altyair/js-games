@@ -1,0 +1,86 @@
+.mdc-snackbar.mat-mdc-snack-bar-container{
+    position: absolute;
+    display: flex;
+    align-content: flex-end;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    & .mdc-snackbar__label {
+        color: black !important;
+    }
+}
+
+.custom-snackbar {
+    position: absolute;
+    right: 25px;
+    top: 60px;
+
+    &-warning .mat-mdc-snack-bar-label  {
+        border: 2px solid $accent-color
+    }
+    &-success .mat-mdc-snack-bar-label {
+        border: 2px solid $primary-color
+    }
+    &-error .mat-mdc-snack-bar-label {
+        border: 2px solid $warn-color;
+    }
+
+    .mdc-snackbar__surface {
+        background-color: white !important;
+        color: black !important;
+        padding: 0;
+    }
+    .mat-mdc-snack-bar-label {
+        padding: 24px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+}
+
+.snack-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+
+    .snack-btn-block {
+        position: relative;
+    }
+
+    .spinner {
+        position: absolute;
+        opacity: 0.5;
+        left: -4px;
+    }
+
+    .title {
+        margin: 0;
+    }
+
+    .dismiss-button {
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    & .success {
+        color: $primary-color;
+        &.mat-mdc-progress-spinner {
+            --mdc-circular-progress-active-indicator-color:#008e1f ;
+        }
+    }
+    & .warning {
+        color: $accent-color;
+        &.mat-mdc-progress-spinner {
+            --mdc-circular-progress-active-indicator-color: #fcd703;
+        }
+    }
+    & .error {
+        color: $warn-color;
+        &.mat-mdc-progress-spinner {
+            --mdc-circular-progress-active-indicator-color: #ff0000;
+        }
+    }
+}

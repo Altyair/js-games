@@ -1,89 +1,249 @@
-// import { interval, fromEvent } from 'rxjs';
-// import { mergeMap, scan, tap } from 'rxjs/operators';
+// @ViewChild('canvas', { static: false }) canvas: ElementRef<HTMLCanvasElement> | undefined;
+// public context: CanvasRenderingContext2D | null | undefined;
 //
-// fromEvent(document, 'click')
-//   .pipe(
-//     scan((a, _) => ++a, 0),
-//     // tap(val => console.log(val)),
-//     // restart counter on every click
-//     mergeMap(
-//       // project
-//       val => {
-//         // console.log(val);
-//         return interval(1000).pipe(
-//           tap(val1 => console.log(val))
-//         )
-//       }
-//     )
-//   )
-//   .subscribe();
-
-// {
-//   "name": "ui",
-//   "version": "0.0.0",
-//   "scripts": {
-//   "ng": "ng",
-//     "start": "ng serve --port 4201 --proxy-config proxy.conf.js",
-//     "start-testing": "ng serve --host 0.0.0.0 --proxy-config proxy-testing.conf.js",
-//     "watch": "ng build  --watch --output-hashing=bundles",
-//     "build": "ng build",
-//     "prod": "ng build --configuration production",
-//     "test-run": "ng test --browsers ChromeHeadless",
-//     "test-debug": "ng test --browsers ChromeDebugging",
-//     "test-ci": "ng test --progress false --watch false --browsers ChromeHeadlessNoSandbox",
-//     "backend": "dotnet run --project ../Src/Sfs.Internal.WebApi/Sfs.Internal.WebApi.csproj"
-// },
-//   "private": true,
-//   "dependencies": {
-//   "@angular/animations": "^17.1.0",
-//     "@angular/cdk": "^17.1.0",
-//     "@angular/common": "^17.1.0",
-//     "@angular/compiler": "^17.1.0",
-//     "@angular/core": "^17.1.0",
-//     "@angular/forms": "^17.1.0",
-//     "@angular/localize": "^17.1.0",
-//     "@angular/material": "^17.1.0",
-//     "@angular/material-luxon-adapter": "^17.1.0",
-//     "@angular/platform-browser": "^17.1.0",
-//     "@angular/platform-browser-dynamic": "^17.1.0",
-//     "@angular/router": "^17.1.0",
-//     "@angular/service-worker": "^17.1.0",
-//     "@microsoft/signalr": "^7.0.10",
-//     "@ng-select/ng-select": "^12.0.6",
-//     "ajv": "^8.12.0",
-//     "file-saver": "^2.0.5",
-//     "lodash-es": "^4.17.21",
-//     "luxon": "^3.2.1",
-//     "moment": "^2.29.4",
-//     "ngx-dropzone": "^3.1.0",
-//     "ngx-mask": "^16.4.2",
-//     "ngx-print-element": "^2.1.4",
-//     "ngx-toastr": "^16.0.0",
-//     "rxjs": "^7.8.0",
-//     "tslib": "^2.5.0",
-//     "zone.js": "^0.14.3"
-// },
-//   "devDependencies": {
-//   "@angular-devkit/build-angular": "^17.1.0",
-//     "@angular/cli": "^17.1.0",
-//     "@angular/compiler-cli": "^17.1.0",
-//     "@types/file-saver": "^2.0.5",
-//     "@types/jasmine": "^4.3.1",
-//     "@types/lodash-es": "^4.17.7",
-//     "@types/luxon": "^3.2.0",
-//     "@typescript-eslint/eslint-plugin": "^5.52.0",
-//     "@typescript-eslint/parser": "^5.52.0",
-//     "eslint": "^8.34.0",
-//     "eslint-config-prettier": "^8.6.0",
-//     "eslint-plugin-html": "^7.1.0",
-//     "eslint-plugin-prettier": "^4.2.1",
-//     "jasmine-core": "^4.5.0",
-//     "karma": "^6.4.1",
-//     "karma-chrome-launcher": "^3.1.1",
-//     "karma-coverage-istanbul-reporter": "^3.0.3",
-//     "karma-jasmine": "^5.1.0",
-//     "karma-jasmine-html-reporter": "^2.0.0",
-//     "prettier": "^2.8.4",
-//     "typescript": "^5.3.3"
+// game: any;
+//
+// ngAfterViewInit(): void {
+//     this.context = this.canvas!.nativeElement.getContext('2d');
+//
+//     this.game = new Game(this.context, this.canvas);
+//     // this.game.render();
+//
+//     // console.log(this.validateBrackets1('[{]'));
+//     // console.log(this.searchInsert([1, 2, 4, 7, 11, 15, 25], 11));
+//
+//     // console.log(this.canJump([1, 3, 0, 4, 1, 0, 3]));
+//     // console.log(this.canJump([1, 3, 0, 2, 1, 0, 3]));
+//
+//     // console.log(this.bubbleSort([1, 3, 0, 2, 1, 0, 3]));
+//     console.log(this.lengthOfLastWord('test7 qwerty moonlight'));
 // }
+//
+// // длина последней подстроки в строке
+// lengthOfLastWord(s: string): number {
+//     const str: string = s.trim();
+//     console.log(str);
+//     let counter = 0;
+//     for (let i = str.length - 1; i >= 0; i--) {
+//         if (str.charAt(i) !== ' ') {
+//             counter++;
+//         } else {
+//             break;
+//         }
+//     }
+//     return counter;
+// }
+//
+// // сортировка пузырьком
+// bubbleSort(array: number[]) {
+//     console.log(array);
+//     for (let i = 0; i < array.length; i++) {
+//         for (let j = 0; j < array.length - i - 1; j++) {
+//             if (array[j] > array[j + 1]) {
+//                 const element = array[j];
+//                 array[j] = array[j + 1];
+//                 array[j + 1] = element;
+//             }
+//         }
+//         console.log(array);
+//     }
+//     return array;
+// }
+//
+// validateBrackets(s: string): boolean {
+//     const stack = [];
+//     for (const c of s) {
+//         if (c === '(' || c === '{' || c === '[') {
+//             stack.push(c);
+//         } else {
+//             if (
+//                 !stack.length ||
+//                 (c === ')' && stack[stack.length - 1] !== '(') ||
+//                 (c === '}' && stack[stack.length - 1] !== '{') ||
+//                 (c === ']' && stack[stack.length - 1] !== '[')
+//             ) {
+//                 return false;
+//             }
+//             stack.pop();
+//         }
+//     }
+//     return !stack.length;
+// }
+//
+// private pairs: any = {
+//     '(': ')',
+//     '{': '}',
+//     '[': ']',
+// };
+//
+// // validation of the bracket structure
+// validateBrackets1(str: string): boolean {
+//     const closes = Object.values(this.pairs);
+//     const stack = [];
+//     for (const s of str) {
+//         if (this.pairs[s]) {
+//             stack.push(this.pairs[s]);
+//         } else if (closes.includes(s) && s !== stack.pop()) {
+//             return false;
+//         }
+//     }
+//     return !stack.length;
+// }
+//
+// // binary search. ex: [1, 2, 4, 7, 11, 15, 25]
+// searchInsert(nums: number[], target: number): number {
+//     let left = 0;
+//     let right = nums.length - 1;
+//
+//     while (left <= right) {
+//         const mid = Math.floor((right - left) / 2) + left;
+//         if (target > nums[mid]) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+//     return left;
+// }
+//
+// // [1,3,0,4,1,2]
+// // [1,2,1,0,4]
+// canJump(nums: number[]): boolean {
+//     console.log('nums', nums);
+//     let reachable = 0;
+//     for (let i = 0; i < nums.length; i++) {
+//         console.log('i', i);
+//
+//         if (i > reachable) {
+//             return false;
+//         }
+//         reachable = Math.max(reachable, i + nums[i]);
+//         console.log('reachable', reachable);
+//     }
+//     return true;
+// }
+
+// @ViewChild('canvas', { static: false }) canvas: ElementRef<HTMLCanvasElement> | undefined;
+// public context: CanvasRenderingContext2D | null | undefined;
+//
+// game: any;
+//
+// ngAfterViewInit(): void {
+//     this.context = this.canvas!.nativeElement.getContext('2d');
+//
+//     this.game = new Game(this.context, this.canvas);
+//     // this.game.render();
+//
+//     // console.log(this.validateBrackets1('[{]'));
+//     // console.log(this.searchInsert([1, 2, 4, 7, 11, 15, 25], 11));
+//
+//     // console.log(this.canJump([1, 3, 0, 4, 1, 0, 3]));
+//     // console.log(this.canJump([1, 3, 0, 2, 1, 0, 3]));
+//
+//     // console.log(this.bubbleSort([1, 3, 0, 2, 1, 0, 3]));
+//     console.log(this.lengthOfLastWord('test7 qwerty moonlight'));
+// }
+//
+// // длина последней подстроки в строке
+// lengthOfLastWord(s: string): number {
+//     const str: string = s.trim();
+//     console.log(str);
+//     let counter = 0;
+//     for (let i = str.length - 1; i >= 0; i--) {
+//         if (str.charAt(i) !== ' ') {
+//             counter++;
+//         } else {
+//             break;
+//         }
+//     }
+//     return counter;
+// }
+//
+// // сортировка пузырьком
+// bubbleSort(array: number[]) {
+//     console.log(array);
+//     for (let i = 0; i < array.length; i++) {
+//         for (let j = 0; j < array.length - i - 1; j++) {
+//             if (array[j] > array[j + 1]) {
+//                 const element = array[j];
+//                 array[j] = array[j + 1];
+//                 array[j + 1] = element;
+//             }
+//         }
+//         console.log(array);
+//     }
+//     return array;
+// }
+//
+// validateBrackets(s: string): boolean {
+//     const stack = [];
+//     for (const c of s) {
+//         if (c === '(' || c === '{' || c === '[') {
+//             stack.push(c);
+//         } else {
+//             if (
+//                 !stack.length ||
+//                 (c === ')' && stack[stack.length - 1] !== '(') ||
+//                 (c === '}' && stack[stack.length - 1] !== '{') ||
+//                 (c === ']' && stack[stack.length - 1] !== '[')
+//             ) {
+//                 return false;
+//             }
+//             stack.pop();
+//         }
+//     }
+//     return !stack.length;
+// }
+//
+// private pairs: any = {
+//     '(': ')',
+//     '{': '}',
+//     '[': ']',
+// };
+//
+// // validation of the bracket structure
+// validateBrackets1(str: string): boolean {
+//     const closes = Object.values(this.pairs);
+//     const stack = [];
+//     for (const s of str) {
+//         if (this.pairs[s]) {
+//             stack.push(this.pairs[s]);
+//         } else if (closes.includes(s) && s !== stack.pop()) {
+//             return false;
+//         }
+//     }
+//     return !stack.length;
+// }
+//
+// // binary search. ex: [1, 2, 4, 7, 11, 15, 25]
+// searchInsert(nums: number[], target: number): number {
+//     let left = 0;
+//     let right = nums.length - 1;
+//
+//     while (left <= right) {
+//         const mid = Math.floor((right - left) / 2) + left;
+//         if (target > nums[mid]) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
+//     return left;
+// }
+//
+// // [1,3,0,4,1,2]
+// // [1,2,1,0,4]
+// canJump(nums: number[]): boolean {
+//     console.log('nums', nums);
+//     let reachable = 0;
+//     for (let i = 0; i < nums.length; i++) {
+//         console.log('i', i);
+//
+//         if (i > reachable) {
+//             return false;
+//         }
+//         reachable = Math.max(reachable, i + nums[i]);
+//         console.log('reachable', reachable);
+//     }
+//     return true;
 // }

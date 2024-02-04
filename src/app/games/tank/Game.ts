@@ -48,7 +48,10 @@ export class Game {
     private readonly scoreboard: Scoreboard;
 
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
-        State.config = { ...config, ...CONFIG };
+        State.config = { ...CONFIG, ...config };
+
+        console.log(State.config);
+
         this.scoreboard = new Scoreboard();
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);

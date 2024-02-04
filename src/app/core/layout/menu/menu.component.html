@@ -1,0 +1,14 @@
+<nav class="wrapper-nav">
+    <mat-icon
+        aria-hidden="false"
+        class="app-icon"
+        svgIcon="home"
+        (click)="router.navigate([''])"
+    ></mat-icon>
+
+    <ng-container *ngFor="let item of menuItems">
+        <a [routerLink]="item.url" routerLinkActive="active-link" class="nav-button"
+            >{{ item.name }}
+        </a>
+    </ng-container>
+</nav>
