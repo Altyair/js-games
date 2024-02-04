@@ -1,5 +1,5 @@
 export const CONFIG = {
-    mapSize: 20,
+    mapSize: 15,
     countBombs: 15,
     countBullets: 300,
     bombSpeed: 300,

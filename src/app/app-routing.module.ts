@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
+import { TankComponent } from './tank/tank.component';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     {
         path: 'tank',
-        component: TestComponent,
+        component: TankComponent,
     },
 ];
 

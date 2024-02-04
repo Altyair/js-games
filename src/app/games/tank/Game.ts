@@ -31,6 +31,7 @@ import { Config, DirectionKeydown, Objects } from './interfaces';
 import { Collisions } from './Collisions';
 import { CONFIG } from './constants';
 import { State } from './State';
+import { Scoreboard } from './Scoreboard';
 
 export class Game {
     private readonly map: Map;
@@ -44,9 +45,11 @@ export class Game {
     private moveBullets$: Observable<number> | undefined;
     private moveTank$: Observable<TankBullet> | undefined;
     private game$: Subscription | undefined;
+    private readonly scoreboard: Scoreboard;
 
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
         State.config = { ...config, ...CONFIG };
+        this.scoreboard = new Scoreboard();
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);
         this.bombs = new Bombs(State.config.countBombs!);
@@ -146,14 +149,19 @@ export class Game {
     public play(): void {
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
-            .subscribe((res) => {
-                this.update();
-            });
+            .subscribe();
 
         Collisions.gameOverObs$.subscribe((_) => {
             // this.bombs?.resetItems();
             // this.update();
         });
+
+        const tick = () => {
+            requestAnimationFrame(tick);
+            this.update();
+        };
+        requestAnimationFrame(tick);
     }
+
     public pause(): void {}
 }
