@@ -6,8 +6,7 @@ export class Scoreboard {
 
     static getTemplate(): string {
         return `<div style="font-size: 25px">
-                    <p>Score: ${State.score}</p>
-                    <p>Level: 0</p>
+                    <p>Score: ${State.score}&nbsp;&nbsp;&nbsp;Level: 0</p>
                 </div>`;
     }
 }

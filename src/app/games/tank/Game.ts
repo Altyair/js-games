@@ -161,7 +161,7 @@ export class Game {
         // main process
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
-            .subscribe((_) => console.log(222));
+            .subscribe();
 
         // game over handler
         Collisions.gameOverObs$.subscribe((_) => {

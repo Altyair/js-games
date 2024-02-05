@@ -16,7 +16,12 @@ export default class AnimationCore {
         if (this._requestId) {
             return;
         }
-        const tick = () => {
+        let startTimestamp = 0;
+        const tick = (timestamp: number) => {
+            const diff = timestamp - startTimestamp;
+            startTimestamp = timestamp;
+            const fps = 1000 / diff;
+
             this._requestId = requestAnimationFrame(tick);
             this._callback();
         };
