@@ -32,8 +32,10 @@ import { Collisions } from './Collisions';
 import { CONFIG } from './constants';
 import { State } from './State';
 import { Scoreboard } from './Scoreboard';
+import AnimationCore from '../shared/AnimationCore';
 
 export class Game {
+    private readonly animationCore: AnimationCore;
     private readonly map: Map;
     private objects: Objects = [];
     private readonly bombs: Bombs | undefined;
@@ -50,6 +52,7 @@ export class Game {
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
         State.config = { ...CONFIG, ...config };
 
+        this.animationCore = new AnimationCore();
         this.scoreboard = new Scoreboard();
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);
@@ -139,7 +142,7 @@ export class Game {
         fromEvent(document, 'keyup')
             .pipe(
                 tap(_ => console.log(this.game$)),
-                takeWhile(_ => !this.game$),
+                takeWhile(_ => !this.game$ || this.game$.closed),
                 filter((event: any) => event.keyCode === 13)
             )
             .subscribe((_) => this._play());
@@ -157,8 +160,6 @@ export class Game {
     }
 
     private _play(): void {
-        let requestId: number | undefined;
-
         // main process
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
@@ -166,17 +167,12 @@ export class Game {
 
         // game over handler
         Collisions.gameOverObs$.subscribe((_) => {
-            if (requestId) {
-                window.cancelAnimationFrame(requestId);
-                requestId = undefined;
-            }
+            this.game$?.unsubscribe();
+            this.animationCore.stop();
         });
 
-        const tick = () => {
-            requestId = requestAnimationFrame(tick);
-            this.update();
-        };
-        requestId = requestAnimationFrame(tick);
+        this.animationCore.callback = this.update.bind(this);
+        this.animationCore.start();
     }
 
     public pause(): void {}
