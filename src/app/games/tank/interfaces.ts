@@ -21,4 +21,5 @@ export interface Config {
 export type Coordinates = [number, number];
 export interface IState {
     config: Config;
+    score?: number;
 }

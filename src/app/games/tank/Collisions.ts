@@ -34,6 +34,7 @@ export class Collisions {
                     // bombs[foundIndex].destroyed = true;
                     bombs[foundIndex].coordinates = [0, Helper.randomValue(0, State.config.mapSize! - 1)];
                     bullet.destroyed = true;
+                    State.score! += 1;
                 }
             });
     }

@@ -1,9 +1,13 @@
-export class Scoreboard {
-    static readonly template = '' + '<div style="width: 300px; height: 150px">' + '<p>Score: 0</p>' + '</div>';
-    private _score: number = 0;
-    constructor() {}
+import { Subject } from 'rxjs';
+import { State } from './State';
 
-    get score(): number {
-        return this._score;
+export class Scoreboard {
+    public static isChangedScore$ = new Subject<boolean>();
+
+    static getTemplate(): string {
+        return `<div style="font-size: 25px">
+                    <p>Score: ${State.score}</p>
+                    <p>Level: 0</p>
+                </div>`;
     }
 }

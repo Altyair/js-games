@@ -4,6 +4,7 @@ import { Bomb } from './objects/Bomb';
 import { TankBullet } from './objects/TankBullet';
 import { Objects } from './interfaces';
 import { State } from './State';
+import { Scoreboard } from "./Scoreboard";
 
 export class Map {
     private readonly template = `<div style="display: inline-block; margin: 1px; width: ${State.config.objectSize}px; height: ${State.config.objectSize}px; background-color: lightcyan"></div>`;
@@ -11,7 +12,7 @@ export class Map {
     public size: number | null = null;
     public map: any = [];
     container: ElementRef<HTMLElement> | undefined;
-    public test = State.config.objectSize;
+    private _htmlScheme: string = '';
 
     constructor(size: number, container: ElementRef<HTMLElement> | undefined) {
         this.size = size;
@@ -29,17 +30,27 @@ export class Map {
         }
     }
 
-    public draw(): void {
-        let htmlScheme = '';
+    private _drawMap(): void {
+        this._htmlScheme += '<div id="map">';
         for (let i = 0; i < this.map.length; i++) {
             for (let j = 0; j < this.map.length; j++) {
-                htmlScheme += this.map[i][j];
+                this._htmlScheme += this.map[i][j];
             }
         }
-        this.container!.nativeElement.innerHTML = htmlScheme;
-        this.container!.nativeElement.style.border = '1px solid black';
-        this.container!.nativeElement.style.width = 'fit-content';
-        this.container!.nativeElement.style.margin = '0 auto';
+        this._htmlScheme += '</div>';
+        this.container!.nativeElement.innerHTML = this._htmlScheme;
+        // this.container!.nativeElement.style.border = '1px solid black';
+        // this.container!.nativeElement.style.width = 'fit-content';
+        // this.container!.nativeElement.style.margin = '0 auto';
+    }
+
+    private _drawScore(): void {
+        this._htmlScheme = Scoreboard.getTemplate();
+    }
+
+    public draw(): void {
+        this._drawScore();
+        this._drawMap();
     }
 
     private putObject(object: Tank | Bomb | TankBullet): void {

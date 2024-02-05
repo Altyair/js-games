@@ -47,13 +47,11 @@ export class Game {
     private moveBullets$: Observable<number> | undefined;
     private moveTank$: Observable<TankBullet> | undefined;
     private game$: Subscription | undefined;
-    private readonly scoreboard: Scoreboard;
 
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
         State.config = { ...CONFIG, ...config };
 
         this.animationCore = new AnimationCore();
-        this.scoreboard = new Scoreboard();
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);
         this.bombs = new Bombs(State.config.countBombs!);
@@ -61,11 +59,11 @@ export class Game {
         this.tank = new Tank();
         this.objects = [this.bullets.items, this.tank, this.bombs.items];
 
-        this.initStreams();
-        this.update();
+        this._initStreams();
+        this._update();
     }
 
-    private initStreams(): void {
+    private _initStreams(): void {
         const bombsArray: Observable<string | number>[] = this.bombs!.items.map((bomb: Bomb, index: number) => {
             return interval(State.config.bombSpeed!).pipe(
                 delayWhen(() => timer(index * 1000)),
@@ -148,7 +146,7 @@ export class Game {
             .subscribe((_) => this._play());
     }
 
-    private update(): void {
+    private _update(): void {
         Collisions.checkCollisions(this.bombs?.items!, this.bullets?.items!, this.tank!);
         this.map.clear();
         this.map.placeObjects(this.objects);
@@ -172,7 +170,7 @@ export class Game {
         });
 
         // requestAnimationFrame manager
-        this.animationCore.callback = this.update.bind(this);
+        this.animationCore.callback = this._update.bind(this);
         this.animationCore.start();
     }
 
