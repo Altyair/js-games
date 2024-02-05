@@ -157,7 +157,7 @@ export class Game {
     }
 
     private _play(): void {
-        console.log(555);
+        let requestId: number | undefined;
 
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
@@ -165,13 +165,18 @@ export class Game {
 
         Collisions.gameOverObs$.subscribe((_) => {
             this.game$?.unsubscribe();
+
+            if (requestId) {
+                window.cancelAnimationFrame(requestId);
+                requestId = undefined;
+            }
         });
 
         const tick = () => {
-            requestAnimationFrame(tick);
+            requestId = requestAnimationFrame(tick);
             this.update();
         };
-        requestAnimationFrame(tick);
+        requestId = requestAnimationFrame(tick);
     }
 
     public pause(): void {}
