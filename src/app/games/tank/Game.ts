@@ -171,11 +171,13 @@ export class Game {
             this.animationCore.stop();
         });
 
+        // requestAnimationFrame manager
         this.animationCore.callback = this.update.bind(this);
         this.animationCore.start();
     }
 
     public pause(): void {}
+
     public play(): void {
         this._play();
     }
