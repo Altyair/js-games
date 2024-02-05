@@ -50,8 +50,6 @@ export class Game {
     constructor(app: ElementRef<HTMLElement> | undefined, config: Config) {
         State.config = { ...CONFIG, ...config };
 
-        console.log(State.config);
-
         this.scoreboard = new Scoreboard();
         this.app = app;
         this.map = new Map(State.config.mapSize!, this.app);
@@ -140,6 +138,8 @@ export class Game {
 
         fromEvent(document, 'keyup')
             .pipe(
+                tap(_ => console.log(this.game$)),
+                takeWhile(_ => !this.game$),
                 filter((event: any) => event.keyCode === 13)
             )
             .subscribe((_) => this._play());
@@ -159,13 +159,13 @@ export class Game {
     private _play(): void {
         let requestId: number | undefined;
 
+        // main process
         this.game$ = merge(this.moveBombs$!, this.moveTank$!, this.moveBullets$!)
             .pipe(takeUntil(Collisions.gameOverObs$))
-            .subscribe();
+            .subscribe((_) => console.log(222));
 
+        // game over handler
         Collisions.gameOverObs$.subscribe((_) => {
-            this.game$?.unsubscribe();
-
             if (requestId) {
                 window.cancelAnimationFrame(requestId);
                 requestId = undefined;
