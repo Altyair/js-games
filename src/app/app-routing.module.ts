@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TankComponent } from './tank/tank.component';
 import { NgModule } from '@angular/core';
 import { LayoutComponent } from '@core/layout/layout.component';
+import { CanvasComponent } from './canvas/canvas.component';
 
 const routes: Routes = [
     {
@@ -12,6 +13,10 @@ const routes: Routes = [
                 path: 'tank',
                 component: TankComponent,
             },
+            {
+                path: 'animations',
+                component: CanvasComponent,
+            }
         ],
     },
 ];

@@ -164,8 +164,6 @@ export class Game {
             .subscribe();
 
         Collisions.gameOverObs$.subscribe((_) => {
-            // this.bombs?.resetItems();
-            // this.update();
             this.game$?.unsubscribe();
         });
 
