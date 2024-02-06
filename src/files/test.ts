@@ -247,3 +247,15 @@
 //     }
 //     return true;
 // }
+
+// this.context!.moveTo(600, 300); // центр
+// this.context!.lineTo(600 + xmov, 300 + ymov); // линия врпаво
+//
+// this.context!.moveTo(600, 300); // центр
+// this.context!.lineTo(600 - xmov, 300 - ymov); // линия влево
+//
+// this.context!.moveTo(600, 300); // центр
+// this.context!.lineTo(600 + xmov1, 300 + ymov1); // линия вниз
+//
+// this.context!.moveTo(600, 300); // центр
+// this.context!.lineTo(600 - xmov1, 300 - ymov1); // линия вверх
