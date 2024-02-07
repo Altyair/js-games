@@ -1,8 +1,4 @@
-interface ILines {
-    x: number;
-    y: number;
-    deg: number;
-}
+type ISide = { x: number; y: number; x1: number; y1: number; angl?: number };
 
 export default class Square {
     context: any;
@@ -11,7 +7,8 @@ export default class Square {
     size: number;
     lineWidth: number;
     strokeStyle: number;
-    angl: number = 0;
+    angl: number;
+    sides: ISide[] = [];
 
     constructor(context: any, options?: any) {
         this.context = context;
@@ -20,6 +17,7 @@ export default class Square {
         this.size = options?.size || 200;
         this.strokeStyle = options?.strokeStyle || 'red';
         this.lineWidth = options?.lineWidth || 0.5;
+        this.angl = options.angl || 0;
 
         this.create();
     }
@@ -35,12 +33,22 @@ export default class Square {
         const xmov1 = this.size * Math.cos((this.angl * Math.PI) / 180);
         const ymov1 = Math.sin((this.angl * Math.PI) / 180) * this.size;
 
+        this.sides = [
+            { x: this.x + xmov, y: this.y + ymov, x1: this.x + xmov1, y1: this.y + ymov1 },
+            { x: this.x + xmov1, y: this.y + ymov1, x1: this.x - xmov, y1: this.y - ymov },
+            { x: this.x - xmov, y: this.y - ymov, x1: this.x - xmov1, y1: this.y - ymov1 },
+            { x: this.x - xmov1, y: this.y - ymov1, x1: this.x + xmov, y1: this.y + ymov },
+        ];
+        this.sides.forEach((side: ISide) => {
+            side.angl = Math.atan2(side.y1 - side.y, side.x1 - side.x);
+        });
+
         this.context?.beginPath();
-        this.context!.moveTo(this.x + xmov, this.y + ymov);
-        this.context!.lineTo(this.x + xmov1, this.y + ymov1);
-        this.context!.lineTo(this.x - xmov, this.y - ymov);
-        this.context!.lineTo(this.x - xmov1, this.y - ymov1);
-        this.context!.lineTo(this.x + xmov, this.y + ymov);
+        this.context!.moveTo(this.sides[0].x, this.sides[0].y);
+        this.context!.lineTo(this.sides[0].x1, this.sides[0].y1);
+        this.context!.lineTo(this.sides[1].x1, this.sides[1].y1);
+        this.context!.lineTo(this.sides[2].x1, this.sides[2].y1);
+        this.context!.lineTo(this.sides[3].x1, this.sides[3].y1);
         this.context!.stroke();
         this.context.closePath();
     }

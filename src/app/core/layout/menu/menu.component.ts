@@ -23,8 +23,8 @@ export class MenuComponent implements OnInit {
                 url: ['/tank'],
             },
             {
-                name: 'Анимации',
-                url: ['/animations'],
+                name: 'Анимация-1',
+                url: ['/animation-1'],
             },
         ];
     }

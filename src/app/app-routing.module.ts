@@ -14,9 +14,9 @@ const routes: Routes = [
                 component: TankComponent,
             },
             {
-                path: 'animations',
+                path: 'animation-1',
                 component: CanvasComponent,
-            }
+            },
         ],
     },
 ];

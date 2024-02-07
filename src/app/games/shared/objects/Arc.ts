@@ -28,10 +28,15 @@ export default class Arc {
         this.endAngle = options.endAngle || Math.PI * 2;
         this.anticlockwise = options.anticlockwise || false;
 
-        this._create();
+        this.create();
     }
 
-    private _create() {
+    public move(): void {
+        this.x += this.xmov;
+        this.y += this.ymov;
+    }
+
+    public create() {
         this.context.strokeStyle = this.strokeStyle;
         this.context.fillStyle = this.fillStyle;
         this.context.beginPath();
