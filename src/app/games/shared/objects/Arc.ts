@@ -5,6 +5,7 @@ export default class Arc {
     radius: number;
     xmov: number;
     ymov: number;
+    vectorByFrame: { xmov: number; ymov: number } | undefined;
     lineWidth: number;
     strokeStyle: number;
     fillStyle: number;
@@ -32,8 +33,16 @@ export default class Arc {
     }
 
     public move(): void {
+        if (this.vectorByFrame) {
+            this.x += this.vectorByFrame.xmov;
+            this.y += this.vectorByFrame.ymov;
+            this.create();
+            this.vectorByFrame = undefined;
+            return;
+        }
         this.x += this.xmov;
         this.y += this.ymov;
+        this.create();
     }
 
     public create() {

@@ -18,10 +18,10 @@ export class CanvasComponent implements AfterViewInit {
 
         // шар
         const ball = new Arc(this.context, {
-            x: 800,
+            x: 600,
             y: 300,
             radius: 20,
-            xmov: -2,
+            xmov: 1,
             ymov: 3,
             lineWidth: 1,
             strokeStyle: 'red',
@@ -33,19 +33,18 @@ export class CanvasComponent implements AfterViewInit {
             x: 600,
             y: 300,
             size: 300,
-            angl: 5,
+            angl: 135,
         });
 
         const anim = new AnimationCore();
         anim.callback = () => {
-            square.angl += 0.05;
-
-            CheckCollisions.checkBallWithPlane(ball, square, anim);
+            square.angl += 0.2;
 
             this.context?.clearRect(0, 0, 1200, 600);
             square.create();
             ball.move();
-            ball.create();
+
+            CheckCollisions.checkBallWithPlane(ball, square, anim);
         };
         anim.start();
     }
