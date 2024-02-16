@@ -259,3 +259,40 @@
 //
 // this.context!.moveTo(600, 300); // центр
 // this.context!.lineTo(600 - xmov1, 300 - ymov1); // линия вверх
+
+// --------------------
+// if (catY <= 20 && catY !== 0 && type === 'first' && isRadPointOnSide) {
+
+// console.log(isRadPointOnSide);
+// console.log('catY', catY);
+// console.log('xC, yC', xC, yC);
+// console.log(ramM1, ramM2);
+// console.log('side', side);
+// console.log('radXmov, radYmov', radXmov, radYmov);
+// console.log((radX - side.x) / (side.x1 - side.x) === (radY - side.y) / (side.y1 - side.y));
+// console.log(ballXmov * ballYmov);
+// console.log(radX, radY);
+// console.log(radM);
+// console.log(planeM);
+
+//
+// context.beginPath();
+// context.moveTo(bollX, bollY);
+// context.lineTo(radX, radY);
+// context!.strokeStyle = 'green';
+// context!.stroke();
+
+// context.beginPath();
+// context.moveTo(bollX, bollY);
+// context.lineTo(radX, radY);
+// context!.strokeStyle = 'blue';
+// context!.stroke();
+//
+// context.beginPath();
+// context.moveTo(bollX, bollY);
+// context.lineTo(x, y);
+// context!.strokeStyle = 'red';
+// context!.stroke();
+
+// anim.stop();
+// }

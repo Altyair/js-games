@@ -1,6 +1,13 @@
 import Arc from './objects/Arc';
 import Geometry from './Geometry';
 
+// TODO
+// 1. добавить условие если catY!== 0 и (вершина C лежит в области проскости ЛИБО
+//  точка пересения шара с плоскостью лежит на отрезке плоскости) ???
+// 2. если след точки шара < грани плоскости, то рассчитывать корректные вектора, чтоб шар четко подходил к грани
+// 3. отрефакторить код. убрать дубли, вынести все в отдельные классы. добавить интерфейсы. SOLID принципы.
+// 4. столкновение 2х шаров.
+
 export default class CheckCollisions {
     static sides: any = [];
     static ccords: any = [];
@@ -97,50 +104,6 @@ export default class CheckCollisions {
 
         const isRadPointOnSide = Math.abs(ramM1) === Math.abs(ramM2) && Geometry.isPointInArea(radX, radY, side);
 
-        // if (catY <= 20 && catY !== 0 && type === 'first' && isRadPointOnSide) {
-
-            // console.log(isRadPointOnSide);
-            // console.log('catY', catY);
-            // console.log('xC, yC', xC, yC);
-            // console.log(ramM1, ramM2);
-            // console.log('side', side);
-            // console.log('radXmov, radYmov', radXmov, radYmov);
-            // console.log((radX - side.x) / (side.x1 - side.x) === (radY - side.y) / (side.y1 - side.y));
-            // console.log(ballXmov * ballYmov);
-            // console.log(radX, radY);
-            // console.log(radM);
-            // console.log(planeM);
-
-            //
-            // context.beginPath();
-            // context.moveTo(bollX, bollY);
-            // context.lineTo(radX, radY);
-            // context!.strokeStyle = 'green';
-            // context!.stroke();
-
-            // context.beginPath();
-            // context.moveTo(bollX, bollY);
-            // context.lineTo(radX, radY);
-            // context!.strokeStyle = 'blue';
-            // context!.stroke();
-            //
-            // context.beginPath();
-            // context.moveTo(bollX, bollY);
-            // context.lineTo(x, y);
-            // context!.strokeStyle = 'red';
-            // context!.stroke();
-
-            // anim.stop();
-        // }
-
-        // TODO
-
-        //2 добавить условие если catY!== 0 и (вершина C лежит в области проскости ЛИБО
-        // точка пересения шара с плоскостью лежит на отрезке плоскости)
-
-        //3 если при след рассчете радиуса: если есть точка пересечения с отрезком плоскости и длина радиуса поменяла знак (центр шара вышел за плоскость), то
-        // считаем корректные вектора
-
         return {
             catY,
             theta,
@@ -192,11 +155,6 @@ export default class CheckCollisions {
             ball.xmov = newMovX;
             ball.ymov = newMovY;
 
-            console.log(111);
-            console.log(newMovX, newMovY);
-
-            // anim.stop();
-
             CheckCollisions.ccords.push([side.x, side.y]);
         } else if (ballBetweenEdgeLen2 <= ball.radius) {
             if (JSON.stringify(CheckCollisions.ccords).indexOf(JSON.stringify([side.x1, side.y1])) !== -1) {
@@ -235,13 +193,7 @@ export default class CheckCollisions {
             ball.xmov = newMovX;
             ball.ymov = newMovY;
 
-            console.log(222);
-
-            console.log(newMovX, newMovY);
-            // anim.stop();
-
             CheckCollisions.ccords.push([side.x1, side.y1]);
-
         }
     }
 }
