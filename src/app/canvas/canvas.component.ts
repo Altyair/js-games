@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import Arc from '../libs/game2d/objects/Arc';
 import Square from '../libs/game2d/objects/Square';
+import Plane from '../libs/game2d/objects/Line';
 import AnimationCore from '../libs/game2d/AnimationCore';
 import CheckCollisions from '../libs/game2d/CheckCollisions';
 
@@ -21,8 +22,8 @@ export class CanvasComponent implements AfterViewInit {
             x: 600,
             y: 50,
             radius: 20,
-            xmov: 1,
-            ymov: 1,
+            xmov: 1.5,
+            ymov: 1.2,
             lineWidth: 1,
             strokeStyle: 'red',
             fillStyle: 'red',
@@ -55,20 +56,29 @@ export class CanvasComponent implements AfterViewInit {
             angl: 120,
         });
 
+        const plane = new Plane(this.context, {
+            x: 600,
+            y: 170,
+            size: 100,
+            angl: 120,
+        });
+
         const anim = new AnimationCore();
         anim.callback = () => {
-            outerSquare.angl += 0.02;
-            // innerSquare.angl -= 0.009;
+            outerSquare.angl += 0.0009;
+            innerSquare.angl -= 0.009;
 
             this.context?.clearRect(0, 0, 1200, 600);
             outerSquare.create();
             innerSquare.create();
+            plane.create();
             // ball1.move();
             ball.move();
 
             // CheckCollisions.checkBallWithPlane(ball1, outerSquare, anim, this.context);
-            CheckCollisions.checkBallWithPlane(ball, outerSquare, anim, this.context);
-            // CheckCollisions.checkBallWithPlane(ball, innerSquare, anim, this.context);
+            CheckCollisions.checkBallWithPlane(ball, outerSquare.sides, anim, this.context);
+            CheckCollisions.checkBallWithPlane(ball, innerSquare.sides, anim, this.context);
+            CheckCollisions.checkBallWithPlane(ball, [plane.side], anim, this.context);
         };
         anim.start();
     }

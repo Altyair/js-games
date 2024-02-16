@@ -6,10 +6,10 @@ export default class Geometry {
 
     static isPointInArea(xC: number, yC: number, side: any): boolean {
         return (
-            xC >= Math.min(side.x, side.x1) - 1 &&
-            xC <= Math.max(side.x1, side.x) + 1 &&
-            yC >= Math.min(side.y, side.y1) - 1 &&
-            yC <= Math.max(side.y1, side.y) + 1
+            xC >= Math.min(side.x, side.x1) &&
+            xC <= Math.max(side.x1, side.x) &&
+            yC >= Math.min(side.y, side.y1) &&
+            yC <= Math.max(side.y1, side.y)
         );
     }
 

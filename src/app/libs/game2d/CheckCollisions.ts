@@ -1,14 +1,15 @@
 import Arc from './objects/Arc';
 import Geometry from './Geometry';
-import { Helper } from "../../games/shared/Helper";
 
 export default class CheckCollisions {
     static sides: any = [];
+    static ccords: any = [];
 
-    static checkBallWithPlane(ball: Arc, plane: any, anim: any, context: any) {
-        CheckCollisions.sides = plane.sides;
-        for (let i = 0; i < plane.sides.length; i++) {
-            const side = plane.sides[i];
+    static checkBallWithPlane(ball: Arc, planes: any, anim: any, context: any) {
+        CheckCollisions.ccords = [];
+        CheckCollisions.sides = planes;
+        for (let i = 0; i < planes.length; i++) {
+            const side = planes[i];
             // длина линии от центра шара перепендикулярно к плоскости
             const catYData = CheckCollisions.getCatY(ball.xmov, ball.ymov, ball.x, ball.y, side, context, 'first',  anim);
             const { catY, theta, gamma, isIntersect } = catYData;
@@ -28,10 +29,10 @@ export default class CheckCollisions {
 
                 ball.xmov = newMovX;
                 ball.ymov = newMovY;
-                anim.stop();
+                // anim.stop();
             } else {
                 // момент столкновения с гранями плоскости
-                CheckCollisions.checkBallWithSideEdges(side, ball, anim, context);
+                CheckCollisions.checkBallWithSideEdges(side, ball, theta, anim, context);
             }
 
             // если шар вышел за грань плоскости то считаем корректные векторные скорости
@@ -46,7 +47,6 @@ export default class CheckCollisions {
                 anim
             );
             if (isIntersect && nextCatYData.catY < ball.radius) {
-                console.log(nextCatYData.catY);
                 const len = Math.abs(ball.radius / Math.sin(nextCatYData.gamma));
                 const xc = nextCatYData.intersectionLinesCoords.x - len * Math.cos(nextCatYData.theta);
                 const yc = nextCatYData.intersectionLinesCoords.y - len * Math.sin(nextCatYData.theta);
@@ -97,26 +97,26 @@ export default class CheckCollisions {
 
         const isRadPointOnSide = Math.abs(ramM1) === Math.abs(ramM2) && Geometry.isPointInArea(radX, radY, side);
 
-        if (catY <= 20 && catY !== 0 && type === 'first') {
+        // if (catY <= 20 && catY !== 0 && type === 'first' && isRadPointOnSide) {
 
-            console.log(isRadPointOnSide);
-            console.log('catY', catY);
+            // console.log(isRadPointOnSide);
+            // console.log('catY', catY);
             // console.log('xC, yC', xC, yC);
-            console.log(ramM1, ramM2);
-            console.log('side', side);
+            // console.log(ramM1, ramM2);
+            // console.log('side', side);
             // console.log('radXmov, radYmov', radXmov, radYmov);
             // console.log((radX - side.x) / (side.x1 - side.x) === (radY - side.y) / (side.y1 - side.y));
-            console.log(ballXmov * ballYmov);
-            console.log(radX, radY);
-            console.log(radM);
-            console.log(planeM);
+            // console.log(ballXmov * ballYmov);
+            // console.log(radX, radY);
+            // console.log(radM);
+            // console.log(planeM);
 
             //
-            context.beginPath();
-            context.moveTo(bollX, bollY);
-            context.lineTo(radX, radY);
-            context!.strokeStyle = 'green';
-            context!.stroke();
+            // context.beginPath();
+            // context.moveTo(bollX, bollY);
+            // context.lineTo(radX, radY);
+            // context!.strokeStyle = 'green';
+            // context!.stroke();
 
             // context.beginPath();
             // context.moveTo(bollX, bollY);
@@ -131,7 +131,7 @@ export default class CheckCollisions {
             // context!.stroke();
 
             // anim.stop();
-        }
+        // }
 
         // TODO
 
@@ -150,18 +150,98 @@ export default class CheckCollisions {
         };
     }
 
-    static checkBallWithSideEdges(side: any, ball: any, anim: any, context :any) {
+    static checkBallWithSideEdges(side: any, ball: any, theta: number, anim: any, context :any) {
+
         const ballBetweenEdgeLen1 = Math.sqrt(Math.pow(ball.x - side.x, 2) + Math.pow(ball.y - side.y, 2));
         const ballBetweenEdgeLen2 = Math.sqrt(Math.pow(ball.x - side.x1, 2) + Math.pow(ball.y - side.y1, 2));
 
         if (ballBetweenEdgeLen1 <= ball.radius) {
-            console.log(111);
-            anim.stop();
-        }
+            if (JSON.stringify(CheckCollisions.ccords).indexOf(JSON.stringify([side.x, side.y])) !== -1) {
+                return;
+            }
 
-        if (ballBetweenEdgeLen2 <= ball.radius) {
+            // угол наклона плоскости
+            const planeM = Geometry.getAngleOfSLopeByVectors(ball.y - side.y, ball.x - side.x);
+            const ballM = Geometry.getAngleOfSLopeByVectors(ball.ymov, ball.xmov);
+            const planeM1 = Geometry.getAngleOfSLopePerpByOtherLine(planeM);
+
+            // точка отсечения по y для шара
+            const ballB = ball.y - ballM * ball.x;
+
+            // точка отсечения по y для плоскости
+            const planeB = side.y - planeM1 * side.x;
+            // console.log(planeB);
+            // координаты пересечения вектора шара с плоскостью
+            const x = (ballB - planeB) / (planeM1 - ballM);
+            const y = planeM1 * x + planeB;
+
+            // угол наклона плоскости
+            const angl = Math.atan2(y - side.y, x - side.x);
+
+            // для вектора шара
+            const velLen = Math.sqrt(Math.pow(ball.xmov, 2) + Math.pow(ball.ymov, 2));
+
+            // потенциальные координаты шара
+            const xc = ball.x - velLen * Math.cos(theta - 2 * (theta - angl));
+            const yc = ball.y - velLen * Math.sin(theta - 2 * (theta - angl));
+
+            // новые вектора
+            const newMovX = ball.x - xc;
+            const newMovY = ball.y - yc;
+
+            ball.xmov = newMovX;
+            ball.ymov = newMovY;
+
+            console.log(111);
+            console.log(newMovX, newMovY);
+
+            // anim.stop();
+
+            CheckCollisions.ccords.push([side.x, side.y]);
+        } else if (ballBetweenEdgeLen2 <= ball.radius) {
+            if (JSON.stringify(CheckCollisions.ccords).indexOf(JSON.stringify([side.x1, side.y1])) !== -1) {
+                return;
+            }
+
+            // угол наклона плоскости
+            const planeM = Geometry.getAngleOfSLopeByVectors(ball.y - side.y1, ball.x - side.x1);
+            const ballM = Geometry.getAngleOfSLopeByVectors(ball.ymov, ball.xmov);
+            const planeM1 = Geometry.getAngleOfSLopePerpByOtherLine(planeM);
+
+            // точка отсечения по y для шара
+            const ballB = ball.y - ballM * ball.x;
+
+            // точка отсечения по y для плоскости
+            const planeB = side.y1 - planeM1 * side.x1;
+            // console.log(planeB);
+            // координаты пересечения вектора шара с плоскостью
+            const x = (ballB - planeB) / (planeM1 - ballM);
+            const y = planeM1 * x + planeB;
+
+            // угол наклона плоскости
+            const angl = Math.atan2(y - side.y1, x - side.x1);
+
+            // для вектора шара
+            const velLen = Math.sqrt(Math.pow(ball.xmov, 2) + Math.pow(ball.ymov, 2));
+
+            // потенциальные координаты шара
+            const xc = ball.x - velLen * Math.cos(theta - 2 * (theta - angl));
+            const yc = ball.y - velLen * Math.sin(theta - 2 * (theta - angl));
+
+            // новые вектора
+            const newMovX = ball.x - xc;
+            const newMovY = ball.y - yc;
+
+            ball.xmov = newMovX;
+            ball.ymov = newMovY;
+
             console.log(222);
-            anim.stop();
+
+            console.log(newMovX, newMovY);
+            // anim.stop();
+
+            CheckCollisions.ccords.push([side.x1, side.y1]);
+
         }
     }
 }
