@@ -51,7 +51,7 @@ export default class Arc {
         this.context.beginPath();
         this.context.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.anticlockwise);
         this.context.lineWidth = this.lineWidth;
-        this.context.fill();
+        this.context.stroke();
         this.context.closePath();
     }
 }

@@ -32,7 +32,7 @@ import { Collisions } from './Collisions';
 import { CONFIG } from './constants';
 import { State } from './State';
 import { Scoreboard } from './Scoreboard';
-import AnimationCore from '../shared/AnimationCore';
+import AnimationCore from '../../libs/game2d/AnimationCore';
 
 export class Game {
     private readonly animationCore: AnimationCore;

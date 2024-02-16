@@ -39,6 +39,14 @@ export default class Square {
             { x: this.x - xmov, y: this.y - ymov, x1: this.x - xmov1, y1: this.y - ymov1 },
             { x: this.x - xmov1, y: this.y - ymov1, x1: this.x + xmov, y1: this.y + ymov },
         ];
+
+        // this.sides = [
+        //     { x: Math.round(this.x + xmov), y: Math.round(this.y + ymov), x1: Math.round(this.x + xmov1), y1: Math.round(this.y + ymov1) },
+        //     { x: Math.round(this.x + xmov1), y: Math.round(this.y + ymov1), x1: Math.round(this.x - xmov), y1: Math.round(this.y - ymov) },
+        //     { x: Math.round(this.x - xmov), y: Math.round(this.y - ymov), x1: Math.round(this.x - xmov1), y1: Math.round(this.y - ymov1) },
+        //     { x: Math.round(this.x - xmov1), y: Math.round(this.y - ymov1), x1: Math.round(this.x + xmov), y1: Math.round(this.y + ymov) },
+        // ];
+
         this.sides.forEach((side: ISide) => {
             side.angl = Math.atan2(side.y1 - side.y, side.x1 - side.x);
         });
