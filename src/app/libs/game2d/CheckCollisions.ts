@@ -24,7 +24,7 @@ export default class CheckCollisions {
             // момент столкновения с плоскостью
             if (isIntersect && catY <= ball.radius) {
                 // для вектора шара
-                const velLen = Math.sqrt(Math.pow(ball.xmov, 2) + Math.pow(ball.ymov, 2));
+                const velLen = Geometry.getLen({ velX: ball.xmov, velY: ball.ymov });
 
                 // потенциальные координаты шара
                 const xc = ball.x - velLen * Math.cos(theta - 2 * gamma);
@@ -86,7 +86,8 @@ export default class CheckCollisions {
         const gamma = theta - side.angl;
 
         // длина от центра шара до точки пересечения
-        const len = Math.sqrt(Math.pow(x - bollX, 2) + Math.pow(y - bollY, 2));
+        const len = Geometry.getLen({ x, x1: bollX, y, y1: bollY });
+
         const catY = Math.floor(Math.abs(Math.sin(gamma) * len));
 
         // найти точку пересечения точки C с плоскостью и проверить что точка лежит на отрезке плоскости.
@@ -114,9 +115,8 @@ export default class CheckCollisions {
     }
 
     static checkBallWithSideEdges(side: any, ball: any, theta: number, anim: any, context :any) {
-
-        const ballBetweenEdgeLen1 = Math.sqrt(Math.pow(ball.x - side.x, 2) + Math.pow(ball.y - side.y, 2));
-        const ballBetweenEdgeLen2 = Math.sqrt(Math.pow(ball.x - side.x1, 2) + Math.pow(ball.y - side.y1, 2));
+        const ballBetweenEdgeLen1 = Geometry.getLen({ x: ball.x, x1: side.x, y: ball.y, y1: side.y });
+        const ballBetweenEdgeLen2 = Geometry.getLen({ x: ball.x, x1: side.x1, y: ball.y, y1: side.y1 });
 
         if (ballBetweenEdgeLen1 <= ball.radius) {
             if (JSON.stringify(CheckCollisions.ccords).indexOf(JSON.stringify([side.x, side.y])) !== -1) {
@@ -142,7 +142,7 @@ export default class CheckCollisions {
             const angl = Math.atan2(y - side.y, x - side.x);
 
             // для вектора шара
-            const velLen = Math.sqrt(Math.pow(ball.xmov, 2) + Math.pow(ball.ymov, 2));
+            const velLen = Geometry.getLen({ velX: ball.xmov, velY: ball.ymov });
 
             // потенциальные координаты шара
             const xc = ball.x - velLen * Math.cos(theta - 2 * (theta - angl));
@@ -180,7 +180,7 @@ export default class CheckCollisions {
             const angl = Math.atan2(y - side.y1, x - side.x1);
 
             // для вектора шара
-            const velLen = Math.sqrt(Math.pow(ball.xmov, 2) + Math.pow(ball.ymov, 2));
+            const velLen = Geometry.getLen({ velX: ball.xmov, velY: ball.ymov });
 
             // потенциальные координаты шара
             const xc = ball.x - velLen * Math.cos(theta - 2 * (theta - angl));

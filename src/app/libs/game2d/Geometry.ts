@@ -43,4 +43,10 @@ export default class Geometry {
         }
         return M;
     }
+
+    static getLen(options: any): number {
+        return options.velX && options.velY
+            ? Math.sqrt(Math.pow(options.velX, 2) + Math.pow(options.velY, 2))
+            : Math.sqrt(Math.pow(options.x - options.x1, 2) + Math.pow(options.y - options.y1, 2));
+    }
 }
