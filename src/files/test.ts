@@ -296,3 +296,37 @@
 
 // anim.stop();
 // }
+
+// // угол наклона вектора шара
+// const ballM = Geometry.getAngleOfSLopeByVectors(ballYmov, ballXmov);
+//
+// // угол наклона плоскости
+// const planeM = Geometry.getAngleOfSLopeByCoords({ y1: side.y1, y: side.y, x1: side.x1, x: side.x });
+//
+// // точка отсечения по y для шара
+// const ballB = bollY - ballM * bollX;
+//
+// // точка отсечения по y для плоскости
+// const planeB = side.y1 - planeM * side.x1;
+//
+// // координаты пересечения вектора шара с плоскостью
+// const x = (ballB - planeB) / (planeM - ballM);
+// const y = planeM * x + planeB;
+
+
+// const radM = Geometry.getAngleOfSLopePerpByOtherLine(intersectionBallWithSideCoords.line2M);
+//
+// // точка отсечения по y для шара
+// const radB = bollY - radM * bollX;
+// // координаты пересечения вектора шара с плоскостью
+// const radX = (radB - planeB) / (planeM - radM);
+// const radY = planeM * radX + planeB;
+
+// // для вектора шара
+// const velLen = Geometry.getLen({ velX: ball.xmov, velY: ball.ymov });
+//
+// // потенциальные координаты шара
+// const xc = ball.x - velLen * Math.cos(theta - 2 * gamma);
+// const yc = ball.y - velLen * Math.sin(theta - 2 * gamma);
+
+

@@ -76,9 +76,9 @@ export class CanvasComponent implements AfterViewInit {
             ball.move();
 
             // CheckCollisions.checkBallWithPlane(ball1, outerSquare, anim, this.context);
-            CheckCollisions.checkBallWithPlane(ball, outerSquare.sides, anim, this.context);
-            CheckCollisions.checkBallWithPlane(ball, innerSquare.sides, anim, this.context);
-            CheckCollisions.checkBallWithPlane(ball, [plane.side], anim, this.context);
+            CheckCollisions.checkArcWithPlane(ball, outerSquare.sides, anim, this.context);
+            CheckCollisions.checkArcWithPlane(ball, innerSquare.sides, anim, this.context);
+            CheckCollisions.checkArcWithPlane(ball, [plane.side], anim, this.context);
         };
         anim.start();
     }

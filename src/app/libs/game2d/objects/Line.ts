@@ -1,4 +1,4 @@
-type IPlane = { x: number; y: number; x1: number; y1: number; angl?: number };
+import { ISide } from '../interfaces';
 
 export default class Plane {
     context: any;
@@ -8,7 +8,7 @@ export default class Plane {
     lineWidth: number;
     strokeStyle: number;
     angl: number;
-    side: IPlane | undefined;
+    side!: ISide;
 
     constructor(context: any, options?: any) {
         this.context = context;
