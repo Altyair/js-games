@@ -25,7 +25,7 @@ import {
     tap,
     timer,
 } from 'rxjs';
-import { Helper } from '../shared/Helper';
+import { Helper } from '../../libs/game2d/Helper';
 import { concatAll, mergeMap, takeWhile } from 'rxjs/operators';
 import { Config, DirectionKeydown, Objects } from './interfaces';
 import { Collisions } from './Collisions';

@@ -65,8 +65,9 @@ export class CanvasComponent implements AfterViewInit {
 
         const anim = new AnimationCore();
         anim.callback = () => {
-            outerSquare.angl += 0.0009;
+            outerSquare.angl += 0.009;
             innerSquare.angl -= 0.009;
+            plane.angl += 0.009;
 
             this.context?.clearRect(0, 0, 1200, 600);
             outerSquare.create();

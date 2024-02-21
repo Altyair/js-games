@@ -1,6 +1,6 @@
 import { Bomb } from './objects/Bomb';
 import { TankBullet } from './objects/TankBullet';
-import { Helper } from '../shared/Helper';
+import { Helper } from '../../libs/game2d/Helper';
 import { Tank } from './objects/Tank';
 import { Coordinates, DirectionKeydown } from './interfaces';
 import { State } from './State';

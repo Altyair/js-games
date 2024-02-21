@@ -1,4 +1,4 @@
-import { Helper } from '../../shared/Helper';
+import { Helper } from '../../../libs/game2d/Helper';
 import { State } from '../State';
 
 export class Bomb {
