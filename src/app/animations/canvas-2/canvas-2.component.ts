@@ -15,8 +15,8 @@ export class Canvas2Component implements AfterViewInit {
         this.context = this.canvas!.nativeElement.getContext('2d');
 
         // set config
-        const config: { timeValue: number, lineType: 'solid' | 'arc' } = {
-            timeValue: 0.0001,
+        const config: { timeValue: number; lineType: 'solid' | 'arc' } = {
+            timeValue: 0.00001,
             lineType: 'arc',
         };
 
@@ -143,7 +143,7 @@ export class Canvas2Component implements AfterViewInit {
                     3 * (1 - time) * Math.pow(time, 2) * figure[2][1] +
                     Math.pow(time, 3) * figure[3][1];
 
-                timeValue = timeValue + 0.00003;
+                timeValue = timeValue + 0.00001;
                 time += timeValue;
             }
 
