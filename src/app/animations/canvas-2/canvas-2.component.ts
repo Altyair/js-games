@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import AnimationCore from '../../libs/game2d/AnimationCore';
-import Arc from "../../libs/game2d/objects/Arc";
+import Arc from '../../libs/game2d/objects/Arc';
 
 @Component({
     selector: 'canvas2-test',
@@ -28,7 +28,9 @@ export class Canvas2Component implements AfterViewInit {
 
         // start coords
         const startX = w! / 2;
-        const startY = h! / 1.5;
+        const startY = h! / 1.5
+
+        console.log(startX, startY);
 
         // bezier points data
         const bezierPoints = [
@@ -79,9 +81,7 @@ export class Canvas2Component implements AfterViewInit {
             }
         };
 
-        // animation process
-        const anim = new AnimationCore();
-
+        // set default state
         const setDefault = () => {
             time = time1 = 0;
             this.context?.clearRect(0, 0, w, h);
@@ -91,8 +91,27 @@ export class Canvas2Component implements AfterViewInit {
             this.context!.strokeStyle = 'rgb(247, 2, 11)';
             this.context?.moveTo(bezierPoints[0][0][0], bezierPoints[0][0][1]);
         };
-        setDefault();
 
+        // init mouse events
+        const initEvents = () => {
+            const mousemoveHandler = ({ layerX, layerY }: any) => {
+                console.log(layerX, layerY);
+
+                bezierPoints[0][0] = [layerX, layerY];
+                bezierPoints[1][3] = [layerX, layerY];
+
+                setDefault();
+            };
+            this.canvas?.nativeElement.addEventListener('mousedown', ({ layerX, layerY }: any) => {
+
+                this.canvas?.nativeElement.addEventListener('mousemove', mousemoveHandler);
+                this.canvas?.nativeElement.addEventListener('mouseup', ({ layerX, layerY }: any) => {
+                    this.canvas?.nativeElement.removeEventListener('mousemove', mousemoveHandler);
+                });
+            });
+        };
+
+        // animation process
         const process = () => {
             let x: number, y: number;
             if (time <= 1) {
@@ -140,6 +159,11 @@ export class Canvas2Component implements AfterViewInit {
             }
         };
 
+        // call functions
+        setDefault();
+        initEvents();
+
+        const anim = new AnimationCore();
         anim.callback = () => {
             process();
         };
