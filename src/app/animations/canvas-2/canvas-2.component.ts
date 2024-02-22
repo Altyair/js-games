@@ -29,7 +29,7 @@ export class Canvas2Component implements AfterViewInit {
 
         // start coords
         const startX = w! / 2;
-        const startY = h! / 1.5;
+        const startY = h! / 2;
 
         // bezier points data
         const bezierPoints: any = [
@@ -39,12 +39,18 @@ export class Canvas2Component implements AfterViewInit {
                 [startX + 200, startY - 400],
                 [startX, startY - 250],
             ],
-            [
-                [startX, startY - 250],
-                [startX - 200, startY - 400],
-                [startX - 250, startY - 200],
-                [startX, startY],
-            ],
+            // [
+            //     [startX, startY - 250],
+            //     [startX - 200, startY - 400],
+            //     [startX - 250, startY - 200],
+            //     [startX, startY],
+            // ],
+            // [
+            //     [startX - 70, startY - 30],
+            //     [startX - 100, startY + 200],
+            //     [startX - 200, startY + 300],
+            //     [startX + 50, startY],
+            // ],
         ];
 
         // draw bezier area with points
@@ -69,9 +75,9 @@ export class Canvas2Component implements AfterViewInit {
             // draw circles for points
             for (let i = 0; i < bezierPoints.length; i++) {
                 for (let j = 0; j < bezierPoints[i].length; j++) {
-                    if (j === 0) {
-                        continue;
-                    }
+                    // if (j === 0) {
+                    //     continue;
+                    // }
                     const arc = new Arc(this.context!, {
                         radius: 10,
                         x: bezierPoints[i][j][0],
@@ -83,14 +89,14 @@ export class Canvas2Component implements AfterViewInit {
         };
 
         // set default state
-        const setDefault = () => {
+        const setDefault = (moveToX: number, moveToY: number) => {
             time = time1 = 0;
             this.context?.clearRect(0, 0, w, h);
             drawBezierPoints();
             this.context?.beginPath();
             this.context!.lineWidth = 5;
             this.context!.strokeStyle = 'rgb(247, 2, 11)';
-            this.context?.moveTo(bezierPoints[0][0][0], bezierPoints[0][0][1]);
+            this.context?.moveTo(moveToX, moveToY);
         };
 
         // init mouse events
@@ -119,34 +125,33 @@ export class Canvas2Component implements AfterViewInit {
         };
 
         // animation process
+        let count: number = 0,
+            figure = bezierPoints[0];
         const process = () => {
             let x: number, y: number;
             if (time <= 1) {
                 x =
-                    Math.pow(1 - time, 3) * bezierPoints[0][0][0] +
-                    3 * Math.pow(1 - time, 2) * time * bezierPoints[0][1][0] +
-                    3 * (1 - time) * Math.pow(time, 2) * bezierPoints[0][2][0] +
-                    Math.pow(time, 3) * bezierPoints[0][0][0];
+                    Math.pow(1 - time, 3) * figure[0][0] +
+                    3 * Math.pow(1 - time, 2) * time * figure[1][0] +
+                    3 * (1 - time) * Math.pow(time, 2) * figure[2][0] +
+                    Math.pow(time, 3) * figure[0][0];
                 y =
-                    Math.pow(1 - time, 3) * bezierPoints[0][0][1] +
-                    3 * Math.pow(1 - time, 2) * time * bezierPoints[0][1][1] +
-                    3 * (1 - time) * Math.pow(time, 2) * bezierPoints[0][2][1] +
-                    Math.pow(time, 3) * bezierPoints[0][3][1];
+                    Math.pow(1 - time, 3) * figure[0][1] +
+                    3 * Math.pow(1 - time, 2) * time * figure[1][1] +
+                    3 * (1 - time) * Math.pow(time, 2) * figure[2][1] +
+                    Math.pow(time, 3) * figure[3][1];
 
                 time += config.timeValue;
-            } else if (time > 1 && time1 <= 1) {
-                x =
-                    Math.pow(1 - time1, 3) * bezierPoints[1][0][0] +
-                    3 * Math.pow(1 - time1, 2) * time1 * bezierPoints[1][1][0] +
-                    3 * (1 - time1) * Math.pow(time1, 2) * bezierPoints[1][2][0] +
-                    Math.pow(time1, 3) * bezierPoints[1][3][0];
-                y =
-                    Math.pow(1 - time1, 3) * bezierPoints[1][0][1] +
-                    3 * Math.pow(1 - time1, 2) * time1 * bezierPoints[1][1][1] +
-                    3 * (1 - time1) * Math.pow(time1, 2) * bezierPoints[1][2][1] +
-                    Math.pow(time1, 3) * bezierPoints[1][3][1];
+            }
 
-                time1 += config.timeValue;
+            if (time > 1) {
+                time = 0;
+                count = bezierPoints[count + 1] ? count + 1 : 0;
+                figure = bezierPoints[count];
+
+                if (config.lineType === 'solid') {
+                    setDefault(figure[0][0], figure[0][1]);
+                }
             }
 
             if (config.lineType === 'arc') {
@@ -157,23 +162,10 @@ export class Canvas2Component implements AfterViewInit {
                 this.context?.lineTo(Math.floor(x!), Math.floor(y!));
                 this.context!.stroke();
             }
-
-            if (time > 1 && time1 === 0) {
-                // this.context?.clearRect(0, 0, w, h);
-                // drawBezierPoints();
-                this.context?.beginPath();
-                this.context!.lineWidth = 10;
-                this.context!.strokeStyle = 'rgb(43, 221, 224)';
-                this.context?.moveTo(bezierPoints[1][0][0], bezierPoints[1][0][1]);
-            }
-
-            if (time1 > 1) {
-                setDefault();
-            }
         };
 
         // call functions
-        setDefault();
+        setDefault(figure[0][0], figure[0][1]);
         initEvents();
 
         // run animation process
