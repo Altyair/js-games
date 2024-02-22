@@ -16,6 +16,8 @@ export class CanvasComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.context = this.canvas!.nativeElement.getContext('2d');
+        this.canvas!.nativeElement.width = innerWidth;
+        this.canvas!.nativeElement.height = innerHeight;
 
         // шар
         const ball = new Arc(this.context, {

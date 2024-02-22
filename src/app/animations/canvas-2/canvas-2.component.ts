@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import AnimationCore from '../../libs/game2d/AnimationCore';
+import Arc from "../../libs/game2d/objects/Arc";
 
 @Component({
     selector: 'canvas2-test',
@@ -13,40 +14,44 @@ export class Canvas2Component implements AfterViewInit {
     ngAfterViewInit(): void {
         this.context = this.canvas!.nativeElement.getContext('2d');
 
+        // set config
         const config: any = {
             timeValue: 0.003,
         };
 
+        // init variables
         let w: number = (this.canvas!.nativeElement.width = innerWidth),
             h: number = (this.canvas!.nativeElement.height = innerHeight),
             mouse: any,
             time: number = 0,
             time1: number = 0;
 
+        // start coords
         const startX = w! / 2;
         const startY = h! / 1.5;
 
+        // bezier points data
         const bezierPoints = [
             [
                 [startX, startY],
-                [startX + 300, startY - 200],
+                [startX + 250, startY - 200],
                 [startX + 200, startY - 400],
                 [startX, startY - 250],
             ],
             [
                 [startX, startY - 250],
                 [startX - 200, startY - 400],
-                [startX - 300, startY - 200],
+                [startX - 250, startY - 200],
                 [startX, startY],
             ],
         ];
 
+        // draw bezier area with points
         const drawBezierPoints = () => {
             this.context?.beginPath();
             this.context!.lineWidth = 1;
             this.context!.strokeStyle = 'lightgray';
             this.context?.moveTo(bezierPoints[0][0][0], bezierPoints[0][0][1]);
-
             for (let i = 0; i < bezierPoints.length; i++) {
                 for (let j = 0; j < bezierPoints[i].length; j++) {
                     if (j === 0) {
@@ -58,8 +63,23 @@ export class Canvas2Component implements AfterViewInit {
             this.context!.lineWidth = 0.5;
             this.context!.stroke();
             this.context?.closePath();
+
+            for (let i = 0; i < bezierPoints.length; i++) {
+                for (let j = 0; j < bezierPoints[i].length; j++) {
+                    if (j === 0) {
+                        continue;
+                    }
+                    const arc = new Arc(this.context!, {
+                        radius: 10,
+                        x: bezierPoints[i][j][0],
+                        y: bezierPoints[i][j][1],
+                    });
+                    arc.create();
+                }
+            }
         };
 
+        // animation process
         const anim = new AnimationCore();
 
         const setDefault = () => {
