@@ -12,6 +12,7 @@ export default class Arc {
     startAngle: number;
     endAngle: number;
     anticlockwise: boolean;
+    fill: boolean;
 
     constructor(context: any, options: any) {
         this.context = context;
@@ -24,6 +25,7 @@ export default class Arc {
         this.lineWidth = options.lineWidth || 1;
         this.strokeStyle = options.strokeStyle || 'red';
         this.fillStyle = options.fillStyle || 'red';
+        this.fill = options.fill || false;
 
         this.startAngle = options.startAngle || 0;
         this.endAngle = options.endAngle || Math.PI * 2;
@@ -51,7 +53,7 @@ export default class Arc {
         this.context.beginPath();
         this.context.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.anticlockwise);
         this.context.lineWidth = this.lineWidth;
-        this.context.stroke();
+        this.fill ? this.context.fill() : this.context.stroke();
         this.context.closePath();
     }
 }

@@ -15,8 +15,9 @@ export class Canvas2Component implements AfterViewInit {
         this.context = this.canvas!.nativeElement.getContext('2d');
 
         // set config
-        const config: any = {
+        const config: { timeValue: number, lineType: 'solid' | 'arc' } = {
             timeValue: 0.003,
+            lineType: 'arc',
         };
 
         // init variables
@@ -149,12 +150,18 @@ export class Canvas2Component implements AfterViewInit {
                 time1 += config.timeValue;
             }
 
-            this.context?.lineTo(Math.floor(x!), Math.floor(y!));
-            this.context!.stroke();
+            if (config.lineType === 'arc') {
+                this.context?.clearRect(0, 0, w, h);
+                drawBezierPoints();
+                new Arc(this.context, { radius: 10, fill: true, x: Math.floor(x!), y: Math.floor(y!) });
+            } else if (config.lineType === 'solid') {
+                this.context?.lineTo(Math.floor(x!), Math.floor(y!));
+                this.context!.stroke();
+            }
 
             if (time > 1 && time1 === 0) {
                 // this.context?.clearRect(0, 0, w, h);
-                drawBezierPoints();
+                // drawBezierPoints();
                 this.context?.beginPath();
                 this.context!.lineWidth = 10;
                 this.context!.strokeStyle = 'rgb(43, 221, 224)';
