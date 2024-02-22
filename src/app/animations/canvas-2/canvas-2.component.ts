@@ -16,7 +16,7 @@ export class Canvas2Component implements AfterViewInit {
 
         // set config
         const config: { timeValue: number, lineType: 'solid' | 'arc' } = {
-            timeValue: 0.003,
+            timeValue: 0.0001,
             lineType: 'arc',
         };
 
@@ -105,6 +105,7 @@ export class Canvas2Component implements AfterViewInit {
             const mousemoveHandler = ({ layerX, layerY }: any) => {
                 editPointsIndexes.forEach((el: [number?, number?], i): void => {
                     bezierPoints[el[0]!][el[1]!] = [layerX, layerY];
+                    setDefault(bezierPoints[0][0][0], bezierPoints[0][0][1])
                 });
             };
             this.canvas?.nativeElement.addEventListener('mousedown', ({ layerX, layerY }: any) => {
@@ -126,6 +127,7 @@ export class Canvas2Component implements AfterViewInit {
 
         // animation process
         let count: number = 0,
+            timeValue: number = config.timeValue,
             figure = bezierPoints[0];
         const process = () => {
             let x: number, y: number;
@@ -134,24 +136,15 @@ export class Canvas2Component implements AfterViewInit {
                     Math.pow(1 - time, 3) * figure[0][0] +
                     3 * Math.pow(1 - time, 2) * time * figure[1][0] +
                     3 * (1 - time) * Math.pow(time, 2) * figure[2][0] +
-                    Math.pow(time, 3) * figure[0][0];
+                    Math.pow(time, 3) * figure[3][0];
                 y =
                     Math.pow(1 - time, 3) * figure[0][1] +
                     3 * Math.pow(1 - time, 2) * time * figure[1][1] +
                     3 * (1 - time) * Math.pow(time, 2) * figure[2][1] +
                     Math.pow(time, 3) * figure[3][1];
 
-                time += config.timeValue;
-            }
-
-            if (time > 1) {
-                time = 0;
-                count = bezierPoints[count + 1] ? count + 1 : 0;
-                figure = bezierPoints[count];
-
-                if (config.lineType === 'solid') {
-                    setDefault(figure[0][0], figure[0][1]);
-                }
+                timeValue = timeValue + 0.00003;
+                time += timeValue;
             }
 
             if (config.lineType === 'arc') {
@@ -161,6 +154,17 @@ export class Canvas2Component implements AfterViewInit {
             } else if (config.lineType === 'solid') {
                 this.context?.lineTo(Math.floor(x!), Math.floor(y!));
                 this.context!.stroke();
+            }
+
+            if (time > 1) {
+                time = 0;
+                timeValue = config.timeValue;
+                count = bezierPoints[count + 1] ? count + 1 : 0;
+                figure = bezierPoints[count];
+
+                if (config.lineType === 'solid') {
+                    setDefault(figure[0][0], figure[0][1]);
+                }
             }
         };
 
