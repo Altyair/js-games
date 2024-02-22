@@ -30,8 +30,6 @@ export class Canvas2Component implements AfterViewInit {
         const startX = w! / 2;
         const startY = h! / 1.5;
 
-        console.log(startX, startY);
-
         // bezier points data
         const bezierPoints: any = [
             [
@@ -155,7 +153,7 @@ export class Canvas2Component implements AfterViewInit {
             this.context!.stroke();
 
             if (time > 1 && time1 === 0) {
-                this.context?.clearRect(0, 0, w, h);
+                // this.context?.clearRect(0, 0, w, h);
                 drawBezierPoints();
                 this.context?.beginPath();
                 this.context!.lineWidth = 10;
