@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import Arc from '../libs/game2d/objects/Arc';
-import Square from '../libs/game2d/objects/Square';
-import Plane from '../libs/game2d/objects/Line';
-import AnimationCore from '../libs/game2d/AnimationCore';
-import CheckCollisions from '../libs/game2d/CheckCollisions';
+import Arc from '../../libs/game2d/objects/Arc';
+import Square from '../../libs/game2d/objects/Square';
+import Plane from '../../libs/game2d/objects/Line';
+import AnimationCore from '../../libs/game2d/AnimationCore';
+import CheckCollisions from '../../libs/game2d/CheckCollisions';
 
 @Component({
     selector: 'canvas-test',

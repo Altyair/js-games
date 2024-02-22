@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import AnimationCore from '../libs/game2d/AnimationCore';
-import Dot from '../libs/game2d/objects/Dot';
+import AnimationCore from '../../libs/game2d/AnimationCore';
+import Dot from '../../libs/game2d/objects/Dot';
 
 @Component({
     selector: 'canvas1-test',
@@ -12,8 +12,8 @@ export class Canvas1Component implements AfterViewInit {
     public context: CanvasRenderingContext2D | null | undefined;
 
     ngAfterViewInit(): void {
-        document.body.style.cursor = 'none';
         this.context = this.canvas!.nativeElement.getContext('2d');
+        this.canvas!.nativeElement.style.cursor = 'none';
 
         const config: any = {
             smooth: 0.65,
@@ -31,8 +31,6 @@ export class Canvas1Component implements AfterViewInit {
             dots = [];
 
             dots.push(new Dot(mouse, this.context, config.bigDotRad));
-
-            console.log(mouse);
         };
 
         init();
@@ -46,8 +44,8 @@ export class Canvas1Component implements AfterViewInit {
         function isDown() {
             mouse.down = !mouse.down;
         }
-        window.addEventListener('mousedown', isDown);
-        window.addEventListener('mouseup', isDown);
+        this.canvas!.nativeElement.addEventListener('mousedown', isDown);
+        this.canvas!.nativeElement.addEventListener('mouseup', isDown);
 
         function updateDots() {
             for (let i = 1; i < dots.length; i++) {
@@ -63,7 +61,7 @@ export class Canvas1Component implements AfterViewInit {
                     let force = (dist - config.sphereRad) / dist * b.mass;
 
                     if (j === 0) {
-                        let alpha = config.mouseSize / dist;
+                        const alpha = config.mouseSize / dist;
                         a.color = `rgb(207, 115, 217, ${alpha})`;
                         dist < config.mouseSize ? ((dist - config.mouseSize) / dist) * b.mass : (force = a.mass);
                     }
@@ -73,8 +71,6 @@ export class Canvas1Component implements AfterViewInit {
                 }
                 dots[i].vel.x = dots[i].vel.x * config.smooth + acc.x * dots[i].mass;
                 dots[i].vel.y = dots[i].vel.y * config.smooth + acc.y * dots[i].mass;
-                // dots[i].vel.x = dots[i].vel.x * config.smooth + acc.x * dots[i].mass;
-                // dots[i].vel.y = dots[i].vel.y * config.smooth + acc.y * dots[i].mass;
             }
         }
 
@@ -86,7 +82,7 @@ export class Canvas1Component implements AfterViewInit {
                 dots.push(new Dot(mouse, this.context));
             }
             updateDots();
-            dots.map((e) => e === dots[0] ? e.draw(mouse.x, mouse.y) : e.draw());
+            dots.map((e) => (e === dots[0] ? e.draw(mouse.x, mouse.y) : e.draw()));
         };
         anim.start();
     }

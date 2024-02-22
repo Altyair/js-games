@@ -30,6 +30,10 @@ export class MenuComponent implements OnInit {
                 name: 'Анимация-2',
                 url: ['/animation-2'],
             },
+            {
+                name: 'Анимация-3',
+                url: ['/animation-3'],
+            },
         ];
     }
 }

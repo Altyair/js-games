@@ -10,13 +10,14 @@ import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CoreModule } from '@core/core.module';
-import { CanvasComponent } from './canvas/canvas.component';
-import { Canvas1Component } from './canvas-1/canvas-1.component';
+import { CanvasComponent } from './animations/canvas/canvas.component';
+import { Canvas1Component } from './animations/canvas-1/canvas-1.component';
+import { Canvas2Component } from './animations/canvas-2/canvas-2.component';
 
 registerLocaleData(localeRu, 'ru-RU');
 
 @NgModule({
-    declarations: [AppComponent, TankComponent, CanvasComponent, Canvas1Component],
+    declarations: [AppComponent, TankComponent, CanvasComponent, Canvas1Component, Canvas2Component],
     exports: [TankComponent],
     imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, MatToolbarModule, CoreModule],
     bootstrap: [AppComponent],
