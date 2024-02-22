@@ -28,12 +28,12 @@ export class Canvas2Component implements AfterViewInit {
 
         // start coords
         const startX = w! / 2;
-        const startY = h! / 1.5
+        const startY = h! / 1.5;
 
         console.log(startX, startY);
 
         // bezier points data
-        const bezierPoints = [
+        const bezierPoints: any = [
             [
                 [startX, startY],
                 [startX + 250, startY - 200],
@@ -50,6 +50,7 @@ export class Canvas2Component implements AfterViewInit {
 
         // draw bezier area with points
         const drawBezierPoints = () => {
+            // draw lines
             this.context?.beginPath();
             this.context!.lineWidth = 1;
             this.context!.strokeStyle = 'lightgray';
@@ -66,6 +67,7 @@ export class Canvas2Component implements AfterViewInit {
             this.context!.stroke();
             this.context?.closePath();
 
+            // draw circles for points
             for (let i = 0; i < bezierPoints.length; i++) {
                 for (let j = 0; j < bezierPoints[i].length; j++) {
                     if (j === 0) {
@@ -94,15 +96,22 @@ export class Canvas2Component implements AfterViewInit {
 
         // init mouse events
         const initEvents = () => {
+            let editPointsIndexes: [number?, number?][] = [];
             const mousemoveHandler = ({ layerX, layerY }: any) => {
-                console.log(layerX, layerY);
-
-                bezierPoints[0][0] = [layerX, layerY];
-                bezierPoints[1][3] = [layerX, layerY];
-
+                editPointsIndexes.forEach((el: [number?, number?], i): void => {
+                    bezierPoints[el[0]!][el[1]!] = [layerX, layerY];
+                });
                 setDefault();
             };
             this.canvas?.nativeElement.addEventListener('mousedown', ({ layerX, layerY }: any) => {
+                editPointsIndexes = [];
+                bezierPoints.forEach((el: [number?, number?][], i: number) => {
+                    el.forEach((el1: any, j: number) => {
+                        if (layerX >= el1[0] - 20 && layerX <= el1[0] + 20 && layerY >= el1[1] - 20 && layerY <= el1[1] + 20) {
+                            editPointsIndexes.push([i, j]);
+                        }
+                    });
+                });
 
                 this.canvas?.nativeElement.addEventListener('mousemove', mousemoveHandler);
                 this.canvas?.nativeElement.addEventListener('mouseup', ({ layerX, layerY }: any) => {
@@ -163,6 +172,7 @@ export class Canvas2Component implements AfterViewInit {
         setDefault();
         initEvents();
 
+        // run animation process
         const anim = new AnimationCore();
         anim.callback = () => {
             process();
