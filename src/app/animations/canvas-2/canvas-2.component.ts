@@ -100,7 +100,6 @@ export class Canvas2Component implements AfterViewInit {
                 editPointsIndexes.forEach((el: [number?, number?], i): void => {
                     bezierPoints[el[0]!][el[1]!] = [layerX, layerY];
                 });
-                setDefault();
             };
             this.canvas?.nativeElement.addEventListener('mousedown', ({ layerX, layerY }: any) => {
                 editPointsIndexes = [];
@@ -111,7 +110,7 @@ export class Canvas2Component implements AfterViewInit {
                         }
                     });
                 });
-
+                if (!editPointsIndexes.length) return;
                 this.canvas?.nativeElement.addEventListener('mousemove', mousemoveHandler);
                 this.canvas?.nativeElement.addEventListener('mouseup', ({ layerX, layerY }: any) => {
                     this.canvas?.nativeElement.removeEventListener('mousemove', mousemoveHandler);
