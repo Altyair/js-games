@@ -28,16 +28,16 @@ export class Canvas2Component implements AfterViewInit {
             time1: number = 0;
 
         // start coords
-        const startX = w! / 2;
-        const startY = h! / 2;
+        const startX = 100;
+        const startY = 600;
 
         // bezier points data
         const bezierPoints: any = [
             [
                 [startX, startY],
-                [startX + 250, startY - 200],
-                [startX + 200, startY - 400],
-                [startX, startY - 250],
+                [startX + 450, startY - 200],
+                [startX + 900, startY - 270],
+                [startX + 1700, startY - 250],
             ],
             // [
             //     [startX, startY - 250],
@@ -105,7 +105,7 @@ export class Canvas2Component implements AfterViewInit {
             const mousemoveHandler = ({ layerX, layerY }: any) => {
                 editPointsIndexes.forEach((el: [number?, number?], i): void => {
                     bezierPoints[el[0]!][el[1]!] = [layerX, layerY];
-                    setDefault(bezierPoints[0][0][0], bezierPoints[0][0][1])
+                    setDefault(bezierPoints[0][0][0], bezierPoints[0][0][1]);
                 });
             };
             this.canvas?.nativeElement.addEventListener('mousedown', ({ layerX, layerY }: any) => {
