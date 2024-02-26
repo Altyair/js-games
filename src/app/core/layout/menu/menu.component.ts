@@ -19,20 +19,24 @@ export class MenuComponent implements OnInit {
     ngOnInit(): void {
         this.menuItems = [
             {
-                name: 'Игра-1',
+                name: 'Simple game by rxjs',
                 url: ['/tank'],
             },
             {
-                name: 'Анимация-1',
+                name: 'Geometric shapes',
                 url: ['/animation-1'],
             },
             {
-                name: 'Анимация-2',
+                name: 'Gravitation',
                 url: ['/animation-2'],
             },
             {
-                name: 'Анимация-3',
+                name: 'Bezier',
                 url: ['/animation-3'],
+            },
+            {
+                name: 'Sparks',
+                url: ['/animation-4'],
             },
         ];
     }

@@ -14,20 +14,34 @@ export default class Dot {
     public rad: number;
     public mass: number;
     public color: string;
-    constructor(mouse: { x: any; y: any }, context: any, r?: number) {
+    public lifeTime?: number;
+    public startAnimTime?: number;
+    constructor(
+        mouse: { x: any; y: any },
+        context: any,
+        r?: number,
+        vel?: { x: any; y: any },
+        lifeTime?: number,
+        startAnimTime?: number,
+        color?: string
+    ) {
         this.context = context;
         this.pos = { x: mouse.x, y: mouse.y };
-        this.vel = { x: 0, y: 0 };
+        this.vel = vel || { x: 0, y: 0 };
         this.rad = r || Helper.randomValue(CONFIG.dotMinRad, CONFIG.dotMaxRad);
         this.mass = this.rad * CONFIG.massFactor;
-        this.color = CONFIG.defColor;
+        this.color = color || CONFIG.defColor;
+        this.lifeTime = lifeTime;
+        this.startAnimTime = startAnimTime;
     }
 
-    draw(x?: number, y?: number) {
-        this.pos.x = x || this.pos.x + this.vel.x;
-        this.pos.y = y || this.pos.y + this.vel.y;
+    draw(options?: any) {
+        this.pos.x = options?.x || this.pos.x + this.vel.x;
+        this.pos.y = options?.y || this.pos.y + this.vel.y;
         this._createCircle(this.pos.x, this.pos.y, this.rad, true, this.color);
-        this._createCircle(this.pos.x, this.pos.y, this.rad, false, CONFIG.defColor);
+        if (options?.withBorder) {
+            this._createCircle(this.pos.x, this.pos.y, this.rad, false, CONFIG.defColor);
+        }
     }
 
     private _createCircle(x: number, y: number, rad: number, fill: boolean, color: string): void {

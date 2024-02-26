@@ -65,13 +65,17 @@ export default class Geometry {
     }
 
     static getLen(options: any): number {
-        return options.velX && options.velY
+        return options.hasOwnProperty('velX') && options.hasOwnProperty('velY')
             ? Math.sqrt(Math.pow(options.velX, 2) + Math.pow(options.velY, 2))
             : Math.sqrt(Math.pow(options.x - options.x1, 2) + Math.pow(options.y - options.y1, 2));
     }
 
     static getProjectionsXY(options: any): { xc: number; yc: number; newMovX: number; newMovY: number } {
         const velLen = Geometry.getLen({ velX: options.xmov, velY: options.ymov });
+
+        console.log(options);
+        console.log(velLen);
+
         const xc = options.x - velLen * Math.cos(options.angl);
         const yc = options.y - velLen * Math.sin(options.angl);
 

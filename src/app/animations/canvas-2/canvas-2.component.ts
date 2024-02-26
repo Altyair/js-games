@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import AnimationCore from '../../libs/game2d/AnimationCore';
 import Arc from '../../libs/game2d/objects/Arc';
+import Dot from '../../libs/game2d/objects/Dot';
+import { Helper } from '../../libs/game2d/Helper';
+import Geometry from '../../libs/game2d/Geometry';
 
 @Component({
     selector: 'canvas2-test',
@@ -112,18 +115,30 @@ export class Canvas2Component implements AfterViewInit {
                 editPointsIndexes = [];
                 bezierPoints.forEach((el: [number?, number?][], i: number) => {
                     el.forEach((el1: any, j: number) => {
-                        if (layerX >= el1[0] - 20 && layerX <= el1[0] + 20 && layerY >= el1[1] - 20 && layerY <= el1[1] + 20) {
+                        if (
+                            layerX >= el1[0] - 20 &&
+                            layerX <= el1[0] + 20 &&
+                            layerY >= el1[1] - 20 &&
+                            layerY <= el1[1] + 20
+                        ) {
                             editPointsIndexes.push([i, j]);
                         }
                     });
                 });
-                if (!editPointsIndexes.length) return;
+                if (!editPointsIndexes.length) {
+                    return;
+                }
                 this.canvas?.nativeElement.addEventListener('mousemove', mousemoveHandler);
                 this.canvas?.nativeElement.addEventListener('mouseup', ({ layerX, layerY }: any) => {
                     this.canvas?.nativeElement.removeEventListener('mousemove', mousemoveHandler);
                 });
             });
         };
+
+        //Функция EaseInQuint
+        function easeInSine(x: number) {
+            return 1 - Math.cos((x * Math.PI) / 2);
+        }
 
         // animation process
         let count: number = 0,
@@ -171,10 +186,11 @@ export class Canvas2Component implements AfterViewInit {
         // call functions
         setDefault(figure[0][0], figure[0][1]);
         initEvents();
-
         // run animation process
         const anim = new AnimationCore();
         anim.callback = () => {
+            this.context?.clearRect(0, 0, w, h);
+
             process();
         };
         anim.start();

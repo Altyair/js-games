@@ -9,6 +9,8 @@ export default class Plane {
     strokeStyle: number;
     angl: number;
     side!: ISide;
+    public lifeTime?: number;
+    public startAnimTime?: number;
 
     constructor(context: any, options?: any) {
         this.context = context;
@@ -18,6 +20,8 @@ export default class Plane {
         this.strokeStyle = options?.strokeStyle || 'red';
         this.lineWidth = options?.lineWidth || 0.5;
         this.angl = options.angl || 0;
+        this.lifeTime = options?.lifeTime;
+        this.startAnimTime = options?.startAnimTime;
 
         this.create();
     }

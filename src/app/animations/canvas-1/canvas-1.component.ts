@@ -82,7 +82,7 @@ export class Canvas1Component implements AfterViewInit {
                 dots.push(new Dot(mouse, this.context));
             }
             updateDots();
-            dots.map((e) => (e === dots[0] ? e.draw(mouse.x, mouse.y) : e.draw()));
+            dots.map((e) => (e === dots[0] ? e.draw({ x: mouse.x, y: mouse.y, withBorder: true }) : e.draw( { withBorder: true })));
         };
         anim.start();
     }
