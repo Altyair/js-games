@@ -50,7 +50,7 @@ class Line {
 
         this.context.beginPath();
         this.context.strokeStyle = this.strokeStyle;
-        this.context.lineWidth = 1;
+        this.context.lineWidth = 2;
         this.context!.moveTo(this.side.x, this.side.y);
         this.context!.lineTo(this.side.x1, this.side.y1);
         this.context!.stroke();
