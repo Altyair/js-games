@@ -86,7 +86,7 @@ export class Canvas3Component implements AfterViewInit {
             const x = Helper.randomValue(w / 2, w / 2);
             const y = Helper.randomValue(h / 2, h / 2);
 
-            const velY = Helper.randomValue(30, 100);
+            const velY = Helper.randomValue(20, 40);
             const angl = Helper.randomValue(160, 180);
             const len = Geometry.getLen({ velX: 0, velY });
 
@@ -96,7 +96,7 @@ export class Canvas3Component implements AfterViewInit {
                     y,
                     size: len,
                     angl,
-                    lifeTime: Helper.randomValue(400, 2500),
+                    lifeTime: Helper.randomValue(400, 5200),
                     startAnimTime: new Date().getTime(),
                     strokeStyle: `rgb(226, 88, 34, 1)`,
                     speedK: { x: 5, y: 7 },
@@ -123,6 +123,10 @@ export class Canvas3Component implements AfterViewInit {
                 if (alpha < 0.8) {
                     el.angl += Helper.randomValue(-2, 3);
                     el.speedK.y = 3;
+                    el.size = 5;
+                }
+                if (alpha < 0.3) {
+                    el.size = 1;
                 }
 
                 el.move();
