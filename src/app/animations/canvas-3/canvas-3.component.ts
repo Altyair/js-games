@@ -18,6 +18,8 @@ class Line {
     public startAnimTime?: number;
     vel!: any | undefined;
     speedK!: any;
+    firstLaunch: boolean = true;
+    alpha: number = 1;
 
     constructor(context: any, options?: any) {
         this.context = context;
@@ -30,21 +32,20 @@ class Line {
         this.lifeTime = options?.lifeTime;
         this.startAnimTime = options?.startAnimTime;
         this.speedK = options?.speedK || { x: 10, y: 5 };
-
-        this.create();
+        // this.create();
     }
 
     move() {
-        this.x += this.vel.x / this.speedK.x;
-        this.y += this.vel.y / this.speedK.y;
-    }
-
-    public create() {
         this.vel = {
             x: this.size * Math.cos((this.angl * Math.PI) / 180),
             y: Math.sin((this.angl * Math.PI) / 180) * this.size,
         };
 
+        this.x += this.vel.x / this.speedK.x;
+        this.y += this.vel.y / this.speedK.y;
+    }
+
+    public create() {
         this.side = { x: this.x, y: this.y, x1: this.x + this.vel.x, y1: this.y + this.vel.y };
         this.side.angl = Math.atan2(this.side.y1 - this.side.y, this.side.x1 - this.side.x);
 
@@ -79,17 +80,19 @@ export class Canvas3Component implements AfterViewInit {
 
         // init variables
         let w: number = (this.canvas!.nativeElement.width = innerWidth),
-            h: number = (this.canvas!.nativeElement.height = innerHeight);
+            h: number = (this.canvas!.nativeElement.height = innerHeight),
+            angl: number = 0;
 
         const particles: any = [];
         const createParticle = () => {
             const x = Helper.randomValue(w / 2, w / 2);
             const y = Helper.randomValue(h / 2, h / 2);
 
-            const velY = Helper.randomValue(20, 40);
-            const angl = Helper.randomValue(160, 180);
+            const velY = Helper.randomValue(10, 30);
+            // const angl = Helper.randomValue(140, 200);
             const len = Geometry.getLen({ velX: 0, velY });
 
+            angl += 0.01;
             particles.push(
                 new Line(this.context, {
                     x,
@@ -97,17 +100,18 @@ export class Canvas3Component implements AfterViewInit {
                     size: len,
                     angl,
                     lifeTime: Helper.randomValue(400, 5200),
-                    startAnimTime: new Date().getTime(),
+                    startAnimTime: new Date().getTime() + Helper.randomValue(100, 300),
                     strokeStyle: `rgb(226, 88, 34, 1)`,
                     speedK: { x: 5, y: 7 },
                 })
             );
         };
 
-        const init1 = () => {
-            for (let i = 0; i < 500; i++) {
+        const init = () => {
+            for (let i = 0; i < 5000; i++) {
                 createParticle();
             }
+            console.log(particles);
         };
 
         const process = () => {
@@ -119,22 +123,27 @@ export class Canvas3Component implements AfterViewInit {
                 }
 
                 const alpha = Math.abs((new Date().getTime() - el.startAnimTime) / el.lifeTime - 1);
-                el.strokeStyle = `rgb(226, 88, 34, ${alpha - 0.3})`;
-                if (alpha < 0.8) {
-                    el.angl += Helper.randomValue(-2, 3);
-                    el.speedK.y = 3;
-                    el.size = 5;
-                }
-                if (alpha < 0.3) {
-                    el.size = 1;
-                }
 
-                el.move();
-                el.create();
+                el.alpha -= 0.001;
+                el.strokeStyle = `rgb(226, 88, 34, ${el.alpha})`;
+
+                el.size -= 0.001;
+                el.speedK.y -= 0.00005;
+                el.angl += Helper.randomValue(-3, 3);
+
+                if (el.firstLaunch) {
+                    if (new Date().getTime() >= el.startAnimTime) {
+                        el.move();
+                        el.create();
+                        el.firstLaunch = false;
+                    }
+                } else {
+                    el.move();
+                    el.create();
+                }
             }
         };
-        init1();
-        process();
+        init();
 
         // run animation process
         const anim = new AnimationCore();
