@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import AnimationCore from '../../libs/game2d/AnimationCore';
 import { Helper } from '../../libs/game2d/Helper';
 import Geometry from '../../libs/game2d/Geometry';
@@ -65,9 +65,10 @@ class Line {
     templateUrl: './canvas-3.component.html',
     styleUrls: ['./canvas-3.component.scss'],
 })
-export class Canvas3Component implements AfterViewInit {
+export class Canvas3Component implements AfterViewInit, OnDestroy {
     @ViewChild('canvas', { static: false }) canvas: ElementRef<HTMLCanvasElement> | undefined;
     public context: CanvasRenderingContext2D | null | undefined;
+    private anim: any;
 
     ngAfterViewInit(): void {
         this.context = this.canvas!.nativeElement.getContext('2d');
@@ -127,7 +128,7 @@ export class Canvas3Component implements AfterViewInit {
                 el.alpha -= 0.001;
                 el.strokeStyle = `rgb(226, 88, 34, ${el.alpha})`;
 
-                el.size -= 0.001;
+                el.size -= 0.005;
                 el.speedK.y -= 0.00005;
                 el.angl += Helper.randomValue(-3, 3);
 
@@ -146,12 +147,16 @@ export class Canvas3Component implements AfterViewInit {
         init();
 
         // run animation process
-        const anim = new AnimationCore();
-        anim.callback = () => {
+        this.anim = new AnimationCore();
+        this.anim.callback = () => {
             this.context?.clearRect(0, 0, w, h);
 
             process();
         };
-        anim.start();
+        this.anim.start();
+    }
+
+    ngOnDestroy(): void {
+        this.anim.stop();
     }
 }

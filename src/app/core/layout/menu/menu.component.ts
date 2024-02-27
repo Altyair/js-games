@@ -38,6 +38,10 @@ export class MenuComponent implements OnInit {
                 name: 'Sparks',
                 url: ['/animation-4'],
             },
+            {
+                name: 'Text from particles',
+                url: ['/animation-5'],
+            },
         ];
     }
 }
