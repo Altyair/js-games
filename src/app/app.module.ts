@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +14,8 @@ import { Canvas1Component } from './animations/canvas-1/canvas-1.component';
 import { Canvas2Component } from './animations/canvas-2/canvas-2.component';
 import { Canvas3Component } from './animations/canvas-3/canvas-3.component';
 import { Canvas4Component } from './animations/canvas-4/canvas-4.component';
+import { Canvas5Component } from './animations/canvas-5/canvas-5.component';
+import { PracticeModule } from './practics/practics.module';
 
 registerLocaleData(localeRu, 'ru-RU');
 
@@ -27,9 +28,18 @@ registerLocaleData(localeRu, 'ru-RU');
         Canvas2Component,
         Canvas3Component,
         Canvas4Component,
+        Canvas5Component,
     ],
     exports: [TankComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, MatToolbarModule, CoreModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        CoreModule,
+        PracticeModule,
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

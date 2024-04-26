@@ -72,10 +72,6 @@ export default class Geometry {
 
     static getProjectionsXY(options: any): { xc: number; yc: number; newMovX: number; newMovY: number } {
         const velLen = Geometry.getLen({ velX: options.xmov, velY: options.ymov });
-
-        console.log(options);
-        console.log(velLen);
-
         const xc = options.x - velLen * Math.cos(options.angl);
         const yc = options.y - velLen * Math.sin(options.angl);
 

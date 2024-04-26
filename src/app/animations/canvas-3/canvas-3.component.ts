@@ -2,63 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import AnimationCore from '../../libs/game2d/AnimationCore';
 import { Helper } from '../../libs/game2d/Helper';
 import Geometry from '../../libs/game2d/Geometry';
-
-import { ISide } from '../../libs/game2d/interfaces';
-
-class Line {
-    context: any;
-    x: number;
-    y: number;
-    size: number;
-    lineWidth: number;
-    strokeStyle: number;
-    angl: number;
-    side!: ISide;
-    public lifeTime?: number;
-    public startAnimTime?: number;
-    vel!: any | undefined;
-    speedK!: any;
-    firstLaunch: boolean = true;
-    alpha: number = 1;
-
-    constructor(context: any, options?: any) {
-        this.context = context;
-        this.x = options?.x || 50;
-        this.y = options?.y || 50;
-        this.size = options?.size / 2 || 200;
-        this.strokeStyle = options?.strokeStyle || 'white';
-        this.lineWidth = options?.lineWidth || 0.5;
-        this.angl = options.angl || 0;
-        this.lifeTime = options?.lifeTime;
-        this.startAnimTime = options?.startAnimTime;
-        this.speedK = options?.speedK || { x: 10, y: 5 };
-        // this.create();
-    }
-
-    move() {
-        this.vel = {
-            x: this.size * Math.cos((this.angl * Math.PI) / 180),
-            y: Math.sin((this.angl * Math.PI) / 180) * this.size,
-        };
-
-        this.x += this.vel.x / this.speedK.x;
-        this.y += this.vel.y / this.speedK.y;
-    }
-
-    public create() {
-        this.side = { x: this.x, y: this.y, x1: this.x + this.vel.x, y1: this.y + this.vel.y };
-        this.side.angl = Math.atan2(this.side.y1 - this.side.y, this.side.x1 - this.side.x);
-
-        this.context.beginPath();
-        this.context.strokeStyle = this.strokeStyle;
-        this.context.lineWidth = 2;
-        this.context!.moveTo(this.side.x, this.side.y);
-        this.context!.lineTo(this.side.x1, this.side.y1);
-        this.context!.stroke();
-        this.context.closePath();
-    }
-}
-
+import Line1 from '../../libs/game2d/objects/Line1';
 
 @Component({
     selector: 'canvas3-test',
@@ -74,10 +18,10 @@ export class Canvas3Component implements AfterViewInit, OnDestroy {
         this.context = this.canvas!.nativeElement.getContext('2d');
 
         // set config
-        // const config: { timeValue: number; lineType: 'solid' | 'arc' } = {
-        //     timeValue: 0.001,
-        //     lineType: 'arc',
-        // };
+        const config: any = {
+            timeValue: 0.001,
+            lineType: 'arc',
+        };
 
         // init variables
         let w: number = (this.canvas!.nativeElement.width = innerWidth),
@@ -95,7 +39,7 @@ export class Canvas3Component implements AfterViewInit, OnDestroy {
 
             angl += 0.01;
             particles.push(
-                new Line(this.context, {
+                new Line1(this.context, {
                     x,
                     y,
                     size: len,

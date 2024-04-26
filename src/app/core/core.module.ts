@@ -3,9 +3,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { LayoutComponent } from './layout/layout.component';
 import { MenuComponent } from './layout/menu/menu.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
-import { NgForOf } from "@angular/common";
-import { MatToolbarModule } from "@angular/material/toolbar";
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NgForOf } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
     exports: [LayoutComponent, MenuComponent],

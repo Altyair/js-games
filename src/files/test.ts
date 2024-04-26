@@ -330,3 +330,84 @@
 // const yc = ball.y - velLen * Math.sin(theta - 2 * gamma);
 
 
+//-----------
+//
+// import Line1 from "../app/libs/game2d/objects/Line1";
+//
+// const rules: any = {
+//   A: 'AB',
+//   B: 'A',
+// };
+//
+// const applyRules = (axiom: string) => {
+//   let result = '';
+//   for (const char of axiom) {
+//     const rule = rules[char];
+//     result += rule !== null ? rule : char;
+//   }
+//   return result;
+// };
+//
+// const getAxiom = (generation: number, axiom: string) => {
+//   for (let i = 0; i < generation; i++) {
+//     axiom = applyRules(axiom);
+//   }
+//
+//   return axiom;
+// };
+//
+// const drawFibonachi = () => {
+//   let x: number,
+//     y: number,
+//     angl: number = 0,
+//     line1!: Line1,
+//     line2!: Line1;
+//
+//   const axiom = getAxiom(15, 'A');
+//   for (const char of axiom) {
+//     if (char === 'A') {
+//       angl += 60;
+//       x = line2 && line2?.side?.x1 ? line2?.side?.x1 : 900;
+//       y = line2 && line2?.side?.y1 ? line2?.side?.y1 : 200;
+//
+//       line1 = new Line1(this.context, {
+//         x,
+//         y,
+//         size: 40,
+//         angl,
+//         strokeStyle: `rgb(226, 88, 34, 1)`,
+//       });
+//       line1.create();
+//     } else if (char === 'B') {
+//       angl -= 60;
+//       x = line1 && line1?.side?.x1 ? line1?.side?.x1 : 900;
+//       y = line1 && line1?.side?.y1 ? line1?.side?.y1 : 200;
+//       line2 = new Line1(this.context, {
+//         x,
+//         y,
+//         size: 40,
+//         angl: angl,
+//         strokeStyle: `rgb(226, 88, 34, 1)`,
+//       });
+//       line2.create();
+//     }
+//   }
+//
+//   // for (const char of axiom) {
+//   //     if (char === 'F' || char === 'G') {
+//   //         line1 = new Line1(this.context, {
+//   //             x: 900,
+//   //             y: 200,
+//   //             size: 40,
+//   //             angl: 0,
+//   //             strokeStyle: `rgb(226, 88, 34, 1)`,
+//   //         });
+//   //         line1.create();
+//   //     } else if (char === "+") {
+//   //         turtle.right(angle);
+//   //     } else if (char === "-") {
+//   //         turtle.left(angle);
+//   //     }
+//   // }
+// };
+// drawFibonachi();

@@ -42,6 +42,14 @@ export class MenuComponent implements OnInit {
                 name: 'Text from particles',
                 url: ['/animation-5'],
             },
+            {
+                name: 'Cylinder of particles',
+                url: ['/animation-6'],
+            },
+            {
+                name: 'Practice',
+                url: ['/example'],
+            },
         ];
     }
 }

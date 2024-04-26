@@ -1,0 +1,6 @@
+<dumb (update)="onUpdateUser($event)" [user]="user$ | async"></dumb>
+
+<div>{{ value | async }}</div>
+<div>{{ value$ | async }}</div>
+
+<p *ngIf="name$ | async as name">{{ name }}</p>
