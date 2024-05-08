@@ -1,6 +1,34 @@
-<dumb (update)="onUpdateUser($event)" [user]="user$ | async"></dumb>
+<!--<dumb [array]="array" (update)="onUpdateArray($event)">-->
+<!--  <sfs-directive #ref [title]="title"></sfs-directive>-->
+<!--  <sfs-directive #ref [title]="title"></sfs-directive>-->
+<!--  <sfs-directive #ref [title]="title"></sfs-directive>-->
 
-<div>{{ value | async }}</div>
-<div>{{ value$ | async }}</div>
+<!--  <p #foo>Skip</p>-->
 
-<p *ngIf="name$ | async as name">{{ name }}</p>
+<!--  <ng-template #bar let-item><p>1. {{ item }}</p></ng-template>-->
+<!--  <ng-template #bar let-item><b>2. {{ item }}</b></ng-template>-->
+<!--  <ng-template #baz let-item><i>3. {{ item }}</i></ng-template>-->
+
+<!--</dumb>-->
+
+
+<!--<button (click)="update()">update array from parent</button>-->
+<!--<div>{{ value | async }}</div>-->
+<!--<div>{{ value$ | async }}</div>-->
+
+<!--<p *ngIf="name$ | async as name">{{ name }}</p>-->
+
+<!--<sfs-directive></sfs-directive>-->
+
+<!--<button [disabled]="cannotDecrease$ | async" (click)="decrease()" class="fz-60 m-20 p-50">-1</button>-->
+<!--<button (click)="increase()" class="fz-60 m-20 p-50">+1</button>-->
+<!--<button [disabled]="cannotDecrease$ | async" (click)="clear()" class="fz-60 m-20 p-50">=0</button>-->
+<!--<p class="fz-60">Счетчик = {{ count$ | async }}</p>-->
+<!--<p *ngIf="updatedAt$ | async" class="fz-60">Обновлялось {{ updatedAt$ | async | date:"HH:mm:ss dd/MM/yyyy" }}</p>-->
+
+<h5>Наш главный заголовок - {{ testService.title }}</h5>
+
+<h5>Сервис заголовка - {{ titleService.testService.title }}</h5>
+<dumb sfsTest>
+<!--  <sfs-dumb-child></sfs-dumb-child>-->
+</dumb>

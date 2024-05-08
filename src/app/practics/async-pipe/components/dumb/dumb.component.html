@@ -1,5 +1,37 @@
-<button (click)="updateUser()">Update user</button>
-<div *ngIf="user">
-  <div>Name: {{ user.name }}</div>
-  <div>Surname: {{ user.surname }}</div>
-</div>
+<!--<button (click)="updateArray()">Update array</button>-->
+<!--<div *ngIf="user">-->
+<!--  <div>Name: {{ user.name }}</div>-->
+<!--  <div>Surname: {{ user.surname }}</div>-->
+<!--</div>-->
+
+<!--<span>{{ array?.join(',') }}</span>-->
+
+<!--<sfs-directive [title]="title"></sfs-directive>-->
+
+<!--{{ title }}-->
+
+<!--<ng-template #test></ng-template>-->
+
+<!--<ng-content select="sfs-directive"></ng-content>-->
+
+<!--<ng-container *ngFor="let template of templates">-->
+<!--    <ng-container *ngTemplateOutlet="template; context: { $implicit: 'Template value' }"></ng-container>-->
+<!--</ng-container>-->
+
+<ng-content></ng-content>
+
+<h4 sfsColory #c='colory'>Заголовок "dumb": {{ testService.title }}</h4>
+<h5>Сервис заголовка - {{ titleService.testService.title }}</h5>
+
+<button (click)="c.setColor('green')">Change color</button>
+
+<ul>
+  <li *ngFor="let title of titles">{{ title.title }}</li>
+</ul>
+
+<h5>titleService1</h5>
+<ul>
+  <li *ngFor="let title of titleService1.titles">{{ title.title }}</li>
+</ul>
+
+<sfs-dumb-child sfsTest></sfs-dumb-child>

@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { ChangeDetectionStrategy, Component, DoCheck, OnChanges } from '@angular/core';
+import { delay, map, Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { clear, countSelector, decrease, increase, updatedAtSelector } from '../../../reducers/counter';
+import { TestService } from "../test.service";
+import { TitleService } from "../../title.service";
 
 interface User {
     name: string;
@@ -10,16 +14,29 @@ interface User {
     selector: 'example',
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleComponent {
-    user$?: Observable<User> = of({ name: 'Test1', surname: 'Testovich1' });
-    value: Promise<Awaited<number>> = Promise.resolve(12);
-    value$: Observable<number> = of(15);
+    count$: Observable<number> | undefined;
+    updatedAt$: Observable<number | undefined>;
+    cannotDecrease$: Observable<boolean> | undefined;
 
-    name$: Observable<string> = of('Test').pipe(delay(1500));
+    count: number = 0;
 
-    onUpdateUser($event: User) {
-        this.user$ = of({ name: 'Test3', surname: 'Testovich3' });
+    constructor(private store: Store, public testService: TestService, public titleService: TitleService) {
+        this.count$ = this.store.select(countSelector);
+        this.cannotDecrease$ = this.count$.pipe(map((count) => count <= 0));
+        this.updatedAt$ = this.store.select(updatedAtSelector);
+    }
+
+    increase(): void {
+        this.store.dispatch(increase());
+    }
+
+    decrease(): void {
+        this.store.dispatch(decrease());
+    }
+
+    clear(): void {
+        this.store.dispatch(clear());
     }
 }

@@ -16,6 +16,12 @@ import { Canvas3Component } from './animations/canvas-3/canvas-3.component';
 import { Canvas4Component } from './animations/canvas-4/canvas-4.component';
 import { Canvas5Component } from './animations/canvas-5/canvas-5.component';
 import { PracticeModule } from './practics/practics.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from '../app.effects';
+import { metaReducers, reducers } from './reducers';
+import { TITLE } from "./practics/tokenTitles";
 
 registerLocaleData(localeRu, 'ru-RU');
 
@@ -38,8 +44,20 @@ registerLocaleData(localeRu, 'ru-RU');
         HttpClientModule,
         MatToolbarModule,
         CoreModule,
-        PracticeModule,
+        PracticeModule.forRoot([
+            { title: '1' },
+            { title: '2' },
+            { title: '3' }
+        ]),
+        StoreModule.forRoot(reducers, {
+            metaReducers,
+        }),
+        StoreDevtoolsModule.instrument({ maxAge: 25 }),
+        EffectsModule.forRoot([AppEffects]),
     ],
     bootstrap: [AppComponent],
+    providers: [
+        // { provide: TITLE, useValue: { title: 'app module' }, multi: true },
+    ]
 })
 export class AppModule {}
